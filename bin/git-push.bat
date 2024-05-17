@@ -9,6 +9,6 @@ cd %~dp0
 cd ..
 git add .
 git commit -m "update"
-git push origin main
+git push -f origin main
 
 pause
