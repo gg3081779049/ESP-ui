@@ -1,0 +1,22 @@
+//黑夜模式
+.dark {
+    --base-background: rgb(20, 20, 20);
+    --logo-title-color: rgb(238, 238, 238);
+    --logo-background: rgb(46, 63, 54);
+    /* sidebar */
+    --sidebar-background: hsl(147, 30%, 26%);
+    --sidebar-background-hover: rgb(45, 81, 61);
+    --sidebar-menu-background: rgb(31, 61, 45);
+    --sidebar-menu-background-hover: rgb(0, 40, 21);
+    --sidebar-text: rgb(191, 217, 203);
+    --sidebar-text-active: var(--el-color-primary);
+    /* navbar */
+    --navbar-background: hsl(147, 10%, 13%);
+    --navbar-icon-color: rgb(204, 204, 204);
+
+    /* element-ui */
+
+    .el-select {
+        --el-fill-color-blank: none;
+    }
+}

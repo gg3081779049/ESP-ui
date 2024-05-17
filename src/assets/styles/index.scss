@@ -1,0 +1,60 @@
+@import url('./light.scss');
+@import url('./dark.scss');
+
+html.light {
+    --sidebar-width: 216px;
+    --el-color-primary: #67c23a;
+
+    --el-color-primary-light-3: #95d475;
+    --el-color-primary-light-5: #b3e19d;
+    --el-color-primary-light-7: #d1edc4;
+    --el-color-primary-light-8: #e1f3d8;
+    --el-color-primary-light-9: #f0f9eb;
+    --el-color-primary-dark-2: #529b2e;
+}
+
+html.dark {
+    --sidebar-width: 216px;
+    --el-color-primary: #64bc38;
+
+    --el-color-primary-light-3: #4f8e2f;
+    --el-color-primary-light-5: #3e6b27;
+    --el-color-primary-light-7: #2d481f;
+    --el-color-primary-light-8: #25371c;
+    --el-color-primary-light-9: #1c2518;
+    --el-color-primary-dark-2: #85ce61;
+}
+
+.el-button {
+    svg {
+        margin-right: 5px;
+        fill: var(--el-button-text-color)
+    }
+
+    &:hover svg {
+        fill: var(--el-button-hover-text-color)
+    }
+
+    &.is-disabled {
+        svg {
+            fill: var(--el-color-info-light-5);
+        }
+    }
+}
+
+.el-menu {
+    --el-menu-bg-color: var(--sidebar-background);
+    --el-menu-hover-bg-color: var(--sidebar-background-hover);
+    --el-menu-text-color: var(--sidebar-text);
+    --el-menu-active-color: var(--sidebar-text-active);
+    --el-menu-border-color: var(--sidebar-background);
+
+    .el-menu {
+        --el-menu-bg-color: var(--sidebar-menu-background);
+        --el-menu-hover-bg-color: var(--sidebar-menu-background-hover);
+    }
+
+    li:not([aria-expanded]).is-active .menu-icon {
+        fill: var(--sidebar-text-active);
+    }
+}
