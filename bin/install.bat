@@ -1,6 +1,6 @@
 @echo off
 echo.
-echo [信息] 安装web所有依赖。
+echo install
 echo.
 
 %~d0
