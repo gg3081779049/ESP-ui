@@ -80,12 +80,10 @@ export default {
       this.visible = false
     },
     addTags() {
-      this.$store.commit('tagsView/addVisitedView', this.$route)
-      this.$store.commit('tagsView/addCachedView', this.$route)
+      this.$store.commit('tagsView/addView', this.$route)
     },
     closeSelectedTag(tag) {
-      this.$store.commit('tagsView/delVisitedView', tag)
-      this.$store.commit('tagsView/delCachedView', tag)
+      this.$store.commit('tagsView/delView', tag)
       if (tag.path === this.$route.path) {
         // 删除当前页面
         this.$router.push(this.visitedViews.at(-1).fullPath)

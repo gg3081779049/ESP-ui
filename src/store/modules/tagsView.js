@@ -4,26 +4,18 @@ const state = {
 }
 
 const mutations = {
-    addVisitedView(state, view) {
-        if (!state.visitedViews.some(v => v.path === view.path)) {
+    addView(state, view) {
+        if (!state.visitedViews.some(v => v.path === view.path) && !state.cachedViews.includes(view.name)) {
             state.visitedViews.push(view)
-        }
-    },
-    addCachedView(state, view) {
-        if (!state.cachedViews.includes(view.name)) {
             state.cachedViews.push(view.name)
         }
     },
-    delVisitedView(state, view) {
-        let index = state.visitedViews.findIndex(v => v.path === view.path);
-        if (index > -1) {
-            state.visitedViews.splice(index, 1);
-        }
-    },
-    delCachedView(state, view) {
-        let index = state.cachedViews.indexOf(view.name)
-        if (index > -1) {
-            state.cachedViews.splice(index, 1)
+    delView(state, view) {
+        let visitedViewIndex = state.visitedViews.findIndex(v => v.path === view.path)
+        let cachedViewIndex = state.cachedViews.indexOf(view.name)
+        if (visitedViewIndex > -1 && cachedViewIndex > -1) {
+            state.visitedViews.splice(visitedViewIndex, 1)
+            state.cachedViews.splice(cachedViewIndex, 1)
         }
     },
     delLeftView(state, view) {
