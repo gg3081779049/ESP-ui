@@ -1,12 +1,11 @@
 <template>
 <div class="tags-view-container">
-  <scroll-pane class="tags-view-wrapper" @scroll="closeMenu">
-    <router-link 
+  <scroll-pane ref="scrollPane" class="tags-view-wrapper" @scroll="closeMenu">
+    <router-link
       tag="span"
       ref="tag"
       class="tags-view-item"
       :class="{ 'active': tag.path === $route.path }"
-      :draggable="visitedViews[0] && visitedViews[0].path !== tag.path"
       v-for="tag in visitedViews"
       :key="tag"
       :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
@@ -17,17 +16,18 @@
     </router-link>
   </scroll-pane>
   <ul class="contextmenu" v-show="visible" :style="{ left: left + 'px', top: top + 'px' }">
-    <li @click="closeSelectedTag(selectedTag)" v-if="!isFirstView"><SvgIcon icon-class="close" /> 关闭当前</li>
+    <li @click="closeSelectedTag(selectedTag)" v-if="!isDefaultView"><SvgIcon icon-class="close" /> 关闭当前</li>
     <li @click="closeOthersTags"><SvgIcon icon-class="close" /> 关闭其他</li>
     <li @click="closeLeftTags" v-if="showCloseLeft"><SvgIcon icon-class="back" /> 关闭左侧</li>
     <li @click="closeRightTags" v-if="showCloseRight"><SvgIcon icon-class="right" /> 关闭右侧</li>
-    <li @click="closeAllTags" v-if="!isFirstView"><SvgIcon icon-class="circle-close" /> 全部关闭</li>
+    <li @click="closeAllTags" v-if="!isDefaultView"><SvgIcon icon-class="circle-close" /> 全部关闭</li>
   </ul>
 </div>
 </template>
 
 <script>
 import ScrollPane from './scrollPane'
+import { useDraggable } from 'vue-draggable-plus'
 
 export default {
   name: "TagsView",
@@ -37,37 +37,37 @@ export default {
       visible: false,
       left: 0,
       top: 0,
-      selectedTag: {},
+      selectedTag: {}
     }
   },
   computed: {
     visitedViews() {
       return this.$store.state.tagsView.visitedViews
     },
-    isFirstView() {
-      try {
-        return this.selectedTag.path === this.visitedViews[0].path || this.selectedTag.path === '/home'
-      } catch (e) {
-        return false
-      }
+    defaultViewIndex() {
+      return this.visitedViews.findIndex(v => v.name === this.$store.state.tagsView.defaultViewName)
+    },
+    selectedViewIndex() {
+      return this.visitedViews.findIndex(v => v.path === this.selectedTag.path)
+    },
+    isDefaultView() {
+      return this.defaultViewIndex > -1 && this.selectedTag.path === this.visitedViews[this.defaultViewIndex].path
     },
     showCloseLeft() {
-      try {
-        return this.visitedViews[0].path !== this.selectedTag.path && this.visitedViews[1].path !== this.selectedTag.path
-      } catch (e) {
-        return false
-      }
+      return this.selectedViewIndex > (this.selectedViewIndex > this.defaultViewIndex ? 1 : 0)
     },
     showCloseRight() {
-      try {
-        return this.selectedTag.path !== this.visitedViews.at(-1).path
-      } catch (e) {
-        return false
-      }
+      return this.visitedViews.length - this.selectedViewIndex > (this.selectedViewIndex < this.defaultViewIndex ? 2 : 1)
     }
   },
   mounted() {
     this.addTags()
+    let viewWrapper = this.$refs.scrollPane.$el.querySelector('.el-scrollbar__view')
+    useDraggable(viewWrapper, {
+      animation: 150,
+      ghostClass: 'ghost',
+      onUpdate: this.handleUpdate
+    }).start()
   },
   methods: {
     openMenu(e, tag) {
@@ -85,23 +85,20 @@ export default {
     closeSelectedTag(tag) {
       this.$store.commit('tagsView/delView', tag)
       if (tag.path === this.$route.path) {
-        // 删除当前页面
         this.$router.push(this.visitedViews.at(-1).fullPath)
       }
     },
     closeLeftTags() {
-      let selectedIndex = this.visitedViews.findIndex(v => v.path === this.selectedTag.path)
       let currentIndex = this.visitedViews.findIndex(v => v.path === this.$route.path)
       this.$store.commit('tagsView/delLeftView', this.selectedTag)
-      if (currentIndex < selectedIndex) {
+      if (currentIndex < this.selectedViewIndex) {
         this.$router.push(this.visitedViews.at(-1).fullPath)
       }
     },
     closeRightTags() {
-      let selectedIndex = this.visitedViews.findIndex(v => v.path === this.selectedTag.path)
       let currentIndex = this.visitedViews.findIndex(v => v.path === this.$route.path)
       this.$store.commit('tagsView/delRightView', this.selectedTag)
-      if (currentIndex > selectedIndex) {
+      if (currentIndex > this.selectedViewIndex) {
         this.$router.push(this.visitedViews.at(-1).fullPath)
       }
     },
@@ -129,7 +126,7 @@ export default {
             let lastTag = null
             let prevTag = tags[index - 1]
             let nextTag = tags[index + 1]
-            
+
             if (tags.length > 0) {
               firstTag = tags[0]
               lastTag = tags.at(-1)
@@ -140,9 +137,7 @@ export default {
             } else if (lastTag === tag) {
               scrollWrapper.scrollLeft = scrollWrapper.scrollWidth - containerWidth
             } else {
-              // the tag's offsetLeft after of nextTag
               let afterNextTagOffsetLeft = nextTag.$el.offsetLeft + nextTag.$el.offsetWidth + tagAndTagSpacing
-              // the tag's offsetLeft before of prevTag
               let beforePrevTagOffsetLeft = prevTag.$el.offsetLeft - tagAndTagSpacing
 
               if (afterNextTagOffsetLeft > scrollWrapper.scrollLeft + containerWidth) {
@@ -156,6 +151,9 @@ export default {
           }
         }
       })
+    },
+    handleUpdate(e) {
+      this.$store.commit('tagsView/moveView', { oldIndex: e.oldIndex, newIndex: e.newIndex })
     }
   },
   watch: {
@@ -216,6 +214,9 @@ export default {
       &:last-of-type {
         margin-right: 15px;
       }
+    }
+    .ghost {
+      opacity: 0.2;
     }
     .active {
       background: var(--el-color-primary);
