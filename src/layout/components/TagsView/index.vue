@@ -1,12 +1,12 @@
 <template>
 <div class="tags-view-container">
-  <scroll-pane class="tags-view-wrapper" ref="scrollPane" @scroll="closeMenu">
+  <scroll-pane class="tags-view-wrapper" @scroll="closeMenu">
     <router-link 
       tag="span"
       ref="tag"
       class="tags-view-item"
       :class="{ 'active': tag.path === $route.path }"
-      :draggable="true"
+      :draggable="visitedViews[0] && visitedViews[0].path !== tag.path"
       v-for="tag in visitedViews"
       :key="tag"
       :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
