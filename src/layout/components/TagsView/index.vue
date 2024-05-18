@@ -6,7 +6,7 @@
       ref="tag"
       class="tags-view-item"
       :class="{ 'active': tag.path === $route.path }"
-      :draggable="false"
+      :draggable="true"
       v-for="tag in visitedViews"
       :key="tag"
       :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
