@@ -8,6 +8,8 @@ const settings = {
         isFullScreen: defaultSettings.isFullScreen,
         fixedPageSize: defaultSettings.fixedPageSize,
         isCollapse: defaultSettings.isCollapse,
+        isUniqueOpened: defaultSettings.isUniqueOpened,
+        draggable: defaultSettings.draggable
     },
     mutations: {
         changeTheme(state, theme) {

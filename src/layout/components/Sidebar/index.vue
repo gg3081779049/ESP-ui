@@ -2,10 +2,16 @@
   <div>
     <div class="sidebar-logo-container">
       <img draggable="false" src="@/assets/logo/logo.png" alt="logo">
-      <h1 v-show="!this.isCollapse">{{ title }}</h1>
+      <transition name="el-zoom-in-center">
+        <h1 v-show="!this.isCollapse">{{ title }}</h1>
+      </transition>
     </div>
     <el-scrollbar>
-      <el-menu :default-active="$route.path.substring(1)" :collapse="this.isCollapse" unique-opened router>
+      <el-menu
+        :default-active="$route.path.substring(1)" 
+        :collapse="this.isCollapse" 
+        :unique-opened="isUniqueOpened" 
+        router>
         <MenuItem v-for="route in this.menuRouterTree" :key="route" :item="route" />
       </el-menu>
     </el-scrollbar>
@@ -19,7 +25,7 @@ import MenuItem from "./MenuItem"
 export default {
   name: 'Sidebar',
   components: { MenuItem },
-  computed: { ...mapGetters(['menuRouterTree', 'isCollapse']) },
+  computed: { ...mapGetters(['menuRouterTree', 'isCollapse', 'isUniqueOpened']) },
   data() {
     return {
       title: process.env.VUE_APP_TITLE.toUpperCase(),
@@ -53,7 +59,7 @@ export default {
     font-size: 14px;
     font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
     vertical-align: middle;
-    transition: 0.6s;
+    transition: 0.5s;
     cursor: pointer;
   }
 }

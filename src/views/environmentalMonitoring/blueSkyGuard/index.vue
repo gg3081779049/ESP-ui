@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-empty description="empty" />
+    <el-empty description="蓝天保卫" />
   </div>
 </template>
 

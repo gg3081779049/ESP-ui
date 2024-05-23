@@ -61,10 +61,8 @@ const mutations = {
         state.cachedViews = []
     },
     moveView(state, { oldIndex, newIndex }) {
-        if (oldIndex !== newIndex) {
-            state.visitedViews.splice(newIndex, 0, state.visitedViews.splice(oldIndex, 1)[0])
-            state.cachedViews.splice(newIndex, 0, state.cachedViews.splice(oldIndex, 1)[0])
-        }
+        state.visitedViews.splice(newIndex, 0, state.visitedViews.splice(oldIndex, 1)[0])
+        state.cachedViews.splice(newIndex, 0, state.cachedViews.splice(oldIndex, 1)[0])
     }
 }
 

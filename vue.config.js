@@ -5,6 +5,9 @@ module.exports = defineConfig({
     devServer: {
         port: 8081,
         open: true,
+        client: {
+            overlay: false
+        },
     },
     configureWebpack: {
         name: process.env.VUE_APP_TITLE

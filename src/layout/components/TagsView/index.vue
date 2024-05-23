@@ -66,6 +66,7 @@ export default {
     useDraggable(viewWrapper, {
       animation: 150,
       ghostClass: 'ghost',
+      disabled: !this.$store.state.settings.draggable,
       onUpdate: this.handleUpdate
     }).start()
   },
@@ -154,6 +155,14 @@ export default {
     },
     handleUpdate(e) {
       this.$store.commit('tagsView/moveView', { oldIndex: e.oldIndex, newIndex: e.newIndex })
+      this.$refs.scrollPane.$nextTick(() => {
+        let pathNameList = [...this.$refs.scrollPane.$el.querySelectorAll('.el-scrollbar__view a')]
+        for (let i = 0; i < this.visitedViews.length; i++) {
+          if (this.visitedViews[i].path !== pathNameList[i].pathname) {
+            console.log('标签发生位置异常');
+          }
+        }
+      })
     }
   },
   watch: {

@@ -28,4 +28,14 @@ module.exports = {
      * 是否折叠菜单
      */
     isCollapse: false,
+
+    /**
+     * 是否只保持一个子菜单的展开
+     */
+    isUniqueOpened: true,
+
+    /**
+     * 是否开启标签拖拽
+     */
+    draggable: true,
 }
