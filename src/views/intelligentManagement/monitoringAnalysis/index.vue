@@ -39,6 +39,13 @@
         </el-button>
       </el-badge>
       <el-button
+        type="warning"
+        plain
+        size="small">
+        <SvgIcon icon-class="export" />
+        <span>导出</span>
+      </el-button>
+      <el-button
         type="info"
         plain
         size="small"
@@ -210,7 +217,7 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      getItem(row.id).then(res => {
+      getItem(row.id || this.ids[0]).then(res => {
         this.form = res.data.data;
         this.open = true;
         this.title = "修改智能管理-能耗监测与分析";
@@ -220,7 +227,7 @@ export default {
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          if (this.form.id != null) {
+          if (this.form.id) {
             updateItem(this.form).then((res) => {
               this.$message({
                 type: 'success',

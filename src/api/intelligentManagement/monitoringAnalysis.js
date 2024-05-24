@@ -50,18 +50,14 @@ export function getItem(id) {
     return new Promise((res, rej) => {
         res({
             data: {
-                data: data.filter(item => item.id === id)[0]
+                data: JSON.parse(JSON.stringify(data.find(item => item.id === id)))
             }
         })
     })
 }
 
 export function deleteItem(ids) {
-    if (Array.isArray(ids)) {
-        data = data.filter(item => !ids.includes(item.id))
-    } else {
-        data = data.filter(item => item.id !== ids)
-    }
+    data = data.filter(item => Array.isArray(ids) ? !ids.includes(item.id) : item.id !== ids)
     return new Promise((res, rej) => {
         res({
             data: {
@@ -85,7 +81,7 @@ export function addItem(form) {
 export function updateItem(form) {
     data = data.map(item => {
         if (item.id === form.id) {
-            return form
+            for(let key in form) item[key] = form[key]
         }
         return item
     })

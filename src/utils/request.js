@@ -33,4 +33,8 @@ service.interceptors.response.use(res => {
     }
 })
 
+export function download(url, params, filename, config) {
+
+}
+
 export default service
