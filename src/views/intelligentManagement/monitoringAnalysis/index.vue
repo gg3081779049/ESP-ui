@@ -41,7 +41,8 @@
       <el-button
         type="warning"
         plain
-        size="small">
+        size="small"
+        @click="handleExport">
         <SvgIcon icon-class="export" />
         <span>导出</span>
       </el-button>
@@ -267,6 +268,12 @@ export default {
         })
       }).catch(() => {});
     },
+    /** 导出按钮操作 */
+    handleExport() {
+      this.download('/export', {
+        ...this.queryParams
+      }, `${new Date().getTime()}.xlsx`)
+    }
   }
 }
 </script>

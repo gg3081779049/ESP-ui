@@ -10,11 +10,14 @@ import '@/permission'
 import '@/icons'
 import SvgIcon from '@/components/SvgIcon'
 import RightToolbar from "@/components/RightToolbar"
+import { download } from '@/utils/request'
 
 const app = createApp(App)
 
 // 禁用生产提示信息
 app.config.productionTip = false
+
+app.config.globalProperties.download = download
 
 app.component(SvgIcon.name || 'SvgIcon', SvgIcon)
 app.component(RightToolbar.name || 'RightToolbar', RightToolbar)

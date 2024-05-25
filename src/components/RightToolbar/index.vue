@@ -8,7 +8,7 @@
       <el-button circle @click="toggleSearch" style="position:relative">
         <SvgIcon style="margin-right:0" icon-class="search"/>
         <svg style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)scale(1.2)" viewBox="0 0 1024 1024" v-if="!showSearch">
-          <polyline points="0,980 980,0 1024,44 44,1024 0,980" />
+          <polyline points="0,940 940,0 985,45 45,985 0,940" />
         </svg>
       </el-button>
     </el-tooltip>

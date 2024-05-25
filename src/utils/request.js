@@ -1,6 +1,8 @@
 import axios from 'axios'
 import errorCode from '@/utils/errorCode'
-import { ElMessage, ElNotification } from 'element-plus'
+import { tansParams, blobValidate } from '@/utils/index'
+import { saveAs } from 'file-saver'
+import { ElMessage, ElNotification, ElLoading } from 'element-plus'
 
 // 创建axios实例
 const service = axios.create({
@@ -33,8 +35,33 @@ service.interceptors.response.use(res => {
     }
 })
 
+let downloadLoadingInstance
 export function download(url, params, filename, config) {
-
+    downloadLoadingInstance = ElLoading.service({
+        text: '正在下载数据，请稍候',
+        background: 'rgba(0, 0, 0, 0.7)'
+    })
+    return service.post(url, params, {
+        transformRequest: [(params) => tansParams(params)],
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        responseType: 'blob',
+        ...config
+    }).then(async (data) => {
+        if (blobValidate(data)) {
+            const blob = new Blob([data])
+            saveAs(blob, filename)
+        } else {
+            let resText = await data.text()
+            let rspObj = JSON.parse(resText)
+            let errMsg = errorCode[rspObj.code] || rspObj.msg || errorCode['default']
+            ElMessage({ message: errMsg, type: 'error' })
+        }
+        downloadLoadingInstance.close()
+    }).catch((r) => {
+        console.error(r)
+        ElMessage({ message: '下载文件出现错误，请联系管理员！', type: 'error' })
+        downloadLoadingInstance.close()
+    })
 }
 
 export default service
