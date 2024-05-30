@@ -7,7 +7,7 @@ module.exports = {
     /**
      * 是否开启主题切换动画
      */
-    isActivateAnimation: true,
+    isActivateAnimation: false,
 
     /**
      * 是否固定头部

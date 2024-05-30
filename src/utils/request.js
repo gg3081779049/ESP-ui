@@ -48,8 +48,7 @@ export function download(url, params, filename, config) {
         ...config
     }).then(async (data) => {
         if (blobValidate(data)) {
-            const blob = new Blob([data])
-            saveAs(blob, filename)
+            saveAs(new Blob([data]), filename)
         } else {
             let resText = await data.text()
             let rspObj = JSON.parse(resText)
@@ -59,7 +58,7 @@ export function download(url, params, filename, config) {
         downloadLoadingInstance.close()
     }).catch((r) => {
         console.error(r)
-        ElMessage({ message: '下载文件出现错误，请联系管理员！', type: 'error' })
+        ElMessage({ message: '下载文件失败，请联系管理员！', type: 'error' })
         downloadLoadingInstance.close()
     })
 }

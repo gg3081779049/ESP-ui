@@ -14,6 +14,16 @@ export function login(username, password, code, uuid) {
     })
 }
 
+export function getInfo() {
+    return new Promise((res, rej) => {
+        res({
+            user: {
+                avatar: '',
+            },
+        })
+    })
+}
+
 // 获取验证码
 export function getCodeImg() {
     return new Promise((resolve, reject) => {

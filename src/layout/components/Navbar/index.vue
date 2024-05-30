@@ -7,50 +7,41 @@
       <Screenfull />
       <ThemeSwitch />
       <el-divider direction="vertical" class="divider" />
-      <el-dropdown class="avatar-container" trigger="click">
-        <div class="avatar-wrapper">
-          <img src="@/assets/images/avatar.png" class="user-avatar" alt="avatar">
-          <span>&nbsp;管理员</span>
-        </div>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item>
-              <span @click="$router.push('user')">个人中心</span>
-            </el-dropdown-item>
-            <el-dropdown-item divided @click.native="logout">
-              <span>退出登录</span>
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+      <div class="avatar-wrapper" @click="openUserCenter = true">
+        <img :src="avatar" class="user-avatar" alt="avatar">
+        <span>&nbsp;管理员</span>
+        <UserCenter v-model="openUserCenter" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Hamburger from '@/components/Hamburger'
-import Breadcrumb from '@/components/Breadcrumb'
-import HeaderSearch from '@/components/HeaderSearch'
-import Screenfull from '@/components/Screenfull'
-import ThemeSwitch from '@/components/ThemeSwitch'
-import { mapMutations } from 'vuex'
+import Hamburger from "@/components/Hamburger";
+import Breadcrumb from "@/components/Breadcrumb";
+import HeaderSearch from "@/components/HeaderSearch";
+import Screenfull from "@/components/Screenfull";
+import ThemeSwitch from "@/components/ThemeSwitch";
+import UserCenter from "@/layout/components/UserCenter";
+import { mapGetters } from "vuex";
 
 export default {
-    name: 'Navbar',
-    components: { Hamburger, Breadcrumb, HeaderSearch, Screenfull, ThemeSwitch },
-    methods: {
-      ...mapMutations(['changeLogin']),
-      async logout() {
-        this.$confirm('确定要退出系统吗？', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          
-        }).catch(() => {});
-      },
-    }
-}
+  name: "Navbar",
+  components: {
+    Hamburger,
+    Breadcrumb,
+    HeaderSearch,
+    Screenfull,
+    ThemeSwitch,
+    UserCenter,
+  },
+  data() {
+    return {
+      openUserCenter: false,
+    };
+  },
+  computed: { ...mapGetters(["avatar"]) }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -59,14 +50,14 @@ export default {
   overflow: hidden;
   position: relative;
   background: var(--navbar-background);
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
 
   .hamburger-container {
     height: 100%;
     float: left;
     cursor: pointer;
     &:hover {
-      background: rgba(0, 0, 0, .025);
+      background: rgba(0, 0, 0, 0.025);
     }
   }
 
@@ -87,23 +78,22 @@ export default {
       border-color: var(--navbar-icon-color);
     }
 
-    .avatar-container {
-      .avatar-wrapper {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        .user-avatar {
-          width: 32px;
-          height: 32px;
-          border-radius: 50%;
-          box-sizing: border-box;
+    .avatar-wrapper {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      color: var(--navbar-icon-color);
+      .user-avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        box-sizing: border-box;
+        &:hover + span {
+          color: var(--el-color-primary);
         }
-        span {
-          color: var(--navbar-icon-color);
-          &:hover{
-            color: var(--el-color-primary);
-          }
-        }
+      }
+      span:hover {
+        color: var(--el-color-primary);
       }
     }
   }

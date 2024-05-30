@@ -21,10 +21,14 @@ router.beforeEach((to, from, next) => {
         } else {
             if (!isLogin) {
                 // 生成路由
-                store.dispatch('init').then(() => {
-                    next();
-                    NProgress.done();
-                    isLogin = true;
+                store.dispatch('GetInfo').then(() => {
+                    store.dispatch('init').then(() => {
+                        next();
+                        NProgress.done();
+                        isLogin = true;
+                    })
+                }).catch(err => {
+
                 })
             } else {
                 next();

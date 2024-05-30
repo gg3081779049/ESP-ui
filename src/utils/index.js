@@ -25,3 +25,16 @@ export function tansParams(params) {
     }
     return result
 }
+
+/**
+* 复制到粘贴板
+*/
+export function copyText(text) {
+    let textarea = document.createElement('textarea')
+    textarea.value = text
+    document.body.appendChild(textarea)
+    textarea.select()
+    document.execCommand('copy')
+    document.body.removeChild(textarea)
+    this.$message.success('复制成功')
+}

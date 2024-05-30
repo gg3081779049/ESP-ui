@@ -10,6 +10,8 @@ import '@/permission'
 import '@/icons'
 import SvgIcon from '@/components/SvgIcon'
 import RightToolbar from "@/components/RightToolbar"
+import BackTop from '@/components/BackTop'
+import { copyText } from '@/utils/index'
 import { download } from '@/utils/request'
 
 const app = createApp(App)
@@ -17,10 +19,12 @@ const app = createApp(App)
 // 禁用生产提示信息
 app.config.productionTip = false
 
+app.config.globalProperties.copyText = copyText
 app.config.globalProperties.download = download
 
 app.component(SvgIcon.name || 'SvgIcon', SvgIcon)
 app.component(RightToolbar.name || 'RightToolbar', RightToolbar)
+app.component(BackTop.name || 'BackTop', BackTop)
 
 app.use(router)
 app.use(store)

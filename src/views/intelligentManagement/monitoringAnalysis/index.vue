@@ -61,17 +61,17 @@
     <br>
 
     <el-table v-loading="loading" :data="list" @selection-change="handleSelectionChange" border>
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="编号" align="center" prop="id" width="66"  />
-      <el-table-column label="地点" align="center" prop="location" />
-      <el-table-column label="生产厂家" align="center" prop="manufacturer" width="200" />
-      <el-table-column label="型号" align="center" prop="model" />
-      <el-table-column label="功率" align="center" prop="power" />
-      <el-table-column label="能耗级别" align="center" prop="energyLevel" />
-      <el-table-column label="时间类型" align="center" prop="timeType" />
-      <el-table-column label="设备实时能耗值" align="center" prop="deviceRealTimePower" width="135" />
-      <el-table-column label="预警阈值" align="center" prop="warnThreshold" />
-      <el-table-column label="操作" align="center" min-width="100">
+      <el-table-column type="selection" align="center" width="55" />
+      <el-table-column label="编号" prop="id" align="center" width="66"  />
+      <el-table-column label="地点" prop="location" align="center" />
+      <el-table-column label="生产厂家" prop="manufacturer" align="center" width="200" />
+      <el-table-column label="型号" prop="model" align="center" />
+      <el-table-column label="功率" prop="power" align="center" />
+      <el-table-column label="能耗级别" prop="energyLevel" align="center" />
+      <el-table-column label="时间类型" prop="timeType" align="center" />
+      <el-table-column label="设备实时能耗值" prop="deviceRealTimePower" align="center" width="135" />
+      <el-table-column label="预警阈值" prop="warnThreshold" align="center" />
+      <el-table-column label="操作" align="center" width="140">
         <template #default="scope">
           <el-button
             size="small"
@@ -92,6 +92,7 @@
     <br>
 
     <div class="page-footer">
+      <BackTop style="margin-right:25px" />
       <el-pagination background layout="slot, prev, pager, next"
         v-show="total > 0"
         :total="total"
@@ -118,18 +119,24 @@
         </el-form-item>
       </el-form>
       <template #footer>
-        <el-button type="primary" @click="submitForm">确 定</el-button>
         <el-button @click="cancel">取 消</el-button>
+        <el-button type="primary" @click="submitForm">确 定</el-button>
       </template>
     </el-dialog>
   </div>
 </template>
 
 <script>
-import { list, getItem, deleteItem, addItem, updateItem } from "@/api/intelligentManagement/monitoringAnalysis"
+import {
+  list,
+  getItem,
+  deleteItem,
+  addItem,
+  updateItem,
+} from "@/api/intelligentManagement/monitoringAnalysis";
 
 export default {
-  name: 'MonitoringAnalysis',
+  name: "MonitoringAnalysis",
   data() {
     return {
       // 遮罩层
@@ -160,7 +167,7 @@ export default {
       // 表单参数
       form: {},
       // 表单校验
-      rules: {}
+      rules: {},
     };
   },
   created() {
@@ -170,7 +177,7 @@ export default {
     /** 查询智能管理-能耗监测与分析列表 */
     getList() {
       this.loading = true;
-      list(this.queryParams).then(res => {
+      list(this.queryParams).then((res) => {
         this.list = res.data.rows;
         this.total = res.data.total;
         this.loading = false;
@@ -185,7 +192,7 @@ export default {
     reset() {
       for (let key in this.form) {
         if (this.form.hasOwnProperty(key)) {
-            this.form[key] = '';
+          this.form[key] = "";
         }
       }
     },
@@ -196,7 +203,7 @@ export default {
     },
     /** 重置按钮操作 */
     resetQuery() {
-      this.reset()
+      this.reset();
       this.handleQuery();
     },
     /** 刷新按钮操作 */
@@ -205,9 +212,9 @@ export default {
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.id)
-      this.single = selection.length!==1
-      this.multiple = !selection.length
+      this.ids = selection.map((item) => item.id);
+      this.single = selection.length !== 1;
+      this.multiple = !selection.length;
     },
     /** 新增按钮操作 */
     handleAdd() {
@@ -218,7 +225,7 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset();
-      getItem(row.id || this.ids[0]).then(res => {
+      getItem(row.id || this.ids[0]).then((res) => {
         this.form = res.data.data;
         this.open = true;
         this.title = "修改智能管理-能耗监测与分析";
@@ -226,64 +233,81 @@ export default {
     },
     /** 提交按钮 */
     submitForm() {
-      this.$refs["form"].validate(valid => {
+      this.$refs["form"].validate((valid) => {
         if (valid) {
           if (this.form.id) {
             updateItem(this.form).then((res) => {
               this.$message({
-                type: 'success',
-                message: "修改成功"
+                type: "success",
+                message: "修改成功",
               });
               this.open = false;
               this.getList();
-            })
+            });
           } else {
             addItem(this.form).then((res) => {
               this.$message({
-                type: 'success',
-                message: "新增成功"
+                type: "success",
+                message: "新增成功",
               });
               this.open = false;
               this.getList();
-            })
+            });
           }
         }
-      })
+      });
     },
     /** 删除按钮操作 */
     handleDelete(row) {
       const ids = row.id || this.ids;
-      if (Array.isArray(ids) && ids.length === 0) return
-      this.$confirm('是否确认删除能耗监测与分析编号为"' + ids + '"的数据项？', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning'
-      }).then(() => {
-        return deleteItem(ids)
-      }).then(() => {
-        this.getList();
-        this.$message({
-          type: 'success',
-          message: "删除成功"
+      if (Array.isArray(ids) && ids.length === 0) return;
+      this.$confirm(
+        '是否确认删除能耗监测与分析编号为"' + ids + '"的数据项？',
+        "提示",
+        {
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning",
+        }
+      )
+        .then(() => {
+          return deleteItem(ids);
         })
-      }).catch(() => {});
+        .then(() => {
+          this.getList();
+          this.$message({
+            type: "success",
+            message: "删除成功",
+          });
+        })
+        .catch(() => {});
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('/export', {
-        ...this.queryParams
-      }, `${new Date().getTime()}.xlsx`)
-    }
-  }
-}
+      this.download(
+        "/export",
+        {
+          ...this.queryParams,
+        },
+        `${new Date().getTime()}.xlsx`
+      );
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .page-footer {
   display: flex;
   justify-content: end;
+  position: relative;
   ::v-deep .el-pager li.is-active {
     background-color: var(--el-color-primary-light-3);
+  }
+  .backtop-btn {
+    position: relative;
+    left: 0;
+    top: 0;
   }
 }
 </style>
