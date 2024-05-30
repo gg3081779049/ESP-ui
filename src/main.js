@@ -11,7 +11,7 @@ import '@/icons'
 import SvgIcon from '@/components/SvgIcon'
 import RightToolbar from "@/components/RightToolbar"
 import BackTop from '@/components/BackTop'
-import { copyText } from '@/utils/index'
+import { copyText, resetForm } from '@/utils/index'
 import { download } from '@/utils/request'
 
 const app = createApp(App)
@@ -21,6 +21,7 @@ app.config.productionTip = false
 
 app.config.globalProperties.copyText = copyText
 app.config.globalProperties.download = download
+app.config.globalProperties.resetForm = resetForm
 
 app.component(SvgIcon.name || 'SvgIcon', SvgIcon)
 app.component(RightToolbar.name || 'RightToolbar', RightToolbar)

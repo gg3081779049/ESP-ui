@@ -3,10 +3,9 @@ import defaultSettings, { fixedPageSize } from '@/settings'
 const settings = {
     state: {
         theme: defaultSettings.theme,
-        isActivateAnimation: defaultSettings.isActivateAnimation,
+        isActivateAnimation: true,
         fixedHeader: defaultSettings.fixedHeader,
-        isFullScreen: defaultSettings.isFullScreen,
-        fixedPageSize: defaultSettings.fixedPageSize,
+        isFullScreen: false,
         isCollapse: defaultSettings.isCollapse,
         isUniqueOpened: defaultSettings.isUniqueOpened,
         draggable: defaultSettings.draggable

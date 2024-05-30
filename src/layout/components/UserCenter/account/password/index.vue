@@ -3,7 +3,7 @@
   <el-button @click="open = true" plain>
     <SvgIcon icon-class="edit" />{{ isEdit ? '修改' : '设置' }}
   </el-button>
-  <el-dialog v-model="open" :title="isEdit ? '修改密码' : '设置密码'" width="480px" top="20vh" append-to-body>
+  <el-dialog v-model="open" :title="isEdit ? '修改密码' : '设置密码'" width="480px" append-to-body @close="cancel">
     <el-form ref="form" :model="form">
       <el-form-item label="旧的密码" prop="oldPassword" :rules="rule">
         <el-input v-model="form.oldPassword" placeholder="请输入旧的密码" maxlength="64" show-password />
@@ -16,7 +16,7 @@
       </el-form-item>
     </el-form>
     <template #footer>
-      <el-button @click="open = false">取 消</el-button>
+      <el-button @click="cancel">取 消</el-button>
       <el-button @click="submitForm" type="primary">确 定</el-button>
     </template>
   </el-dialog>
@@ -45,6 +45,13 @@ export default {
     };
   },
   methods: {
+    cancel() {
+      this.form.oldPassword = "";
+      this.form.newPassword = "";
+      this.form.confirmPassword = "";
+      this.$refs["form"].resetFields();
+      this.open = false;
+    },
     submitForm() {
       this.$refs["form"].validate((valid) => {
         if (valid) {
@@ -69,4 +76,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.el-input {
+  --el-input-hover-border-color: var(--el-color-primary-light-5);
+}
 </style>

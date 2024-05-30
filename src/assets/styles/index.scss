@@ -58,3 +58,16 @@ html.dark {
         fill: var(--sidebar-text-active);
     }
 }
+
+.el-dialog {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+}
+
+.el-table {
+    --el-table-header-bg-color: var(--el-fill-color-extra-light);
+    --el-table-tr-bg-color: var(--el-fill-color-extra-light);
+}

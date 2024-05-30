@@ -2,7 +2,7 @@
   <div class="avatar-container" title="点击上传头像" @click="openDialog">
     <img class="avatar" :src="options.img" alt="avatar">
   </div>
-  <el-dialog :title="title" v-model="open" width="400px" top="20vh" append-to-body @close="closeDialog">
+  <el-dialog :title="title" v-model="open" width="400px" append-to-body @close="closeDialog">
     <div style="margin-top:20px;display:flex;justify-content:center;">
       <el-button>
         <SvgIcon icon-class="upload-filled" />选择

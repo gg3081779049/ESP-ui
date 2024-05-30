@@ -92,7 +92,7 @@
     <br>
 
     <div class="page-footer">
-      <BackTop style="margin-right:25px" />
+      <back-top style="margin-right:25px" />
       <el-pagination background layout="slot, prev, pager, next"
         v-show="total > 0"
         :total="total"
@@ -106,7 +106,7 @@
     </div>
 
     <!-- 添加或修改智能管理-能耗监测与分析对话框 -->
-    <el-dialog :title="title" v-model="open" width="500px" append-to-body>
+    <el-dialog :title="title" v-model="open" width="500px" append-to-body @close="cancel">
       <el-form ref="form" :model="form" :rules="rules" label-width="auto">
         <el-form-item label="地点" prop="location">
           <el-input v-model="form.location" placeholder="请输入地点" />
@@ -195,15 +195,21 @@ export default {
           this.form[key] = "";
         }
       }
+      this.resetForm("form");
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.queryParams.pageNum = 1;
       this.getList();
     },
     /** 重置按钮操作 */
     resetQuery() {
-      this.reset();
+      this.resetForm("queryForm");
+      this.queryParams = {
+        pageNum: 1,
+        pageSize: 10,
+        location: null,
+        timeType: null,
+      };
       this.handleQuery();
     },
     /** 刷新按钮操作 */

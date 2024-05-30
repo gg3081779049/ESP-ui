@@ -39,7 +39,7 @@ export function list(params) {
     return new Promise((res, rej) => {
         res({
             data: {
-                total: data.length,
+                total: params.location || params.timeType ? Data.length : data.length,
                 rows: Data
             }
         })
@@ -81,7 +81,7 @@ export function addItem(form) {
 export function updateItem(form) {
     data = data.map(item => {
         if (item.id === form.id) {
-            for(let key in form) item[key] = form[key]
+            for (let key in form) item[key] = form[key]
         }
         return item
     })
