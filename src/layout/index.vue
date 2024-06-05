@@ -5,7 +5,7 @@
       <el-scrollbar>
         <div :class="{ 'fixed-header': fixedHeader }">
           <Navbar />
-          <TagsView />
+          <TagsView v-if="showTagsView" />
         </div>
         <AppMain />
       </el-scrollbar>
@@ -23,7 +23,7 @@ import AppMain from "./components/AppMain";
 export default {
   name: "Layout",
   components: { Sidebar, Navbar, TagsView, AppMain },
-  computed: { ...mapGetters(["theme", "fixedHeader"]) },
+  computed: { ...mapGetters(["theme", "fixedHeader", "showTagsView"]) },
   created() {
     document.documentElement.className = this.theme;
   },

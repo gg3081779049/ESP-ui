@@ -1,5 +1,5 @@
 <template>
-<section class="app-main">
+<section :style="{ 'margin-top': fixedHeader ? `${showTagsView ? 84 : 50}px` : `0` }">
   <router-view v-slot="{ Component }">
     <transition name="fade">
       <keep-alive :include="cachedViews">
@@ -11,18 +11,15 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "AppMain",
   computed: {
+    ...mapGetters(["fixedHeader", "showTagsView"]),
     cachedViews() {
-      return this.$store.state.tagsView.cachedViews
+      return this.$store.state.tagsView.cachedViews;
     },
-  }
-}
+  },
+};
 </script>
-
-<style scoped>
-.app-main {
-  margin-top: 84px;
-}
-</style>

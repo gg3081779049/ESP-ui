@@ -1,6 +1,6 @@
 <template>
   <div class="top-right-btn">
-    <el-tooltip 
+    <el-tooltip
       :content="showSearch ? '隐藏搜索' : '显示搜索'" 
       placement="top" 
       effect="light" 

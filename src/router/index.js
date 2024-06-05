@@ -19,8 +19,13 @@ const router = createRouter({
         children: [{
             path: 'home',
             name: 'Home',
-            meta: { title: ['首页'] },
+            meta: { title: ['首页'], icon: ['home'] },
             component: () => import('@/views/home/index.vue')
+        }, {
+            path: 'user',
+            name: 'User',
+            meta: { title: ['个人中心'], icon: ['user'] },
+            component: () => import('@/views/user/index.vue')
         }]
     }]
 });

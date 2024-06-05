@@ -204,12 +204,10 @@ export default {
     /** 重置按钮操作 */
     resetQuery() {
       this.resetForm("queryForm");
-      this.queryParams = {
-        pageNum: 1,
-        pageSize: 10,
-        location: null,
-        timeType: null,
-      };
+      this.queryParams.pageNum = 1;
+      this.queryParams.pageSize = 10;
+      this.queryParams.location = null;
+      this.queryParams.timeType = null;
       this.handleQuery();
     },
     /** 刷新按钮操作 */

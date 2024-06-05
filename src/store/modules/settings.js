@@ -1,14 +1,18 @@
-import defaultSettings, { fixedPageSize } from '@/settings'
+import defaultSettings from '@/settings.js'
 
 const settings = {
     state: {
         theme: defaultSettings.theme,
-        isActivateAnimation: true,
         fixedHeader: defaultSettings.fixedHeader,
-        isFullScreen: false,
-        isCollapse: defaultSettings.isCollapse,
+        showBreadcrumb: defaultSettings.showBreadcrumb,
+        showBreadcrumbIcon: defaultSettings.showBreadcrumbIcon,
+        showTagsView: defaultSettings.showTagsView,
+        showTagsViewIcon: defaultSettings.showTagsViewIcon,
         isUniqueOpened: defaultSettings.isUniqueOpened,
-        draggable: defaultSettings.draggable
+        draggable: defaultSettings.draggable,
+        isActivateAnimation: true,
+        isFullScreen: false,
+        isCollapse: false,
     },
     mutations: {
         changeTheme(state, theme) {
@@ -35,13 +39,26 @@ const settings = {
                 document.documentElement.className = theme
             }
         },
+        changeFixedHeader(state, fixedHeader) {
+            state.fixedHeader = fixedHeader
+        },
+        changeShowBreadcrumbIcon(state, showBreadcrumbIcon) {
+            state.showBreadcrumbIcon = showBreadcrumbIcon
+        },
+        changeIsUniqueOpened(state, isUniqueOpened) {
+            state.isUniqueOpened = isUniqueOpened
+        },
+        changeDraggable(state, draggable) {
+            state.draggable = draggable
+        },
         changeFullScreen(state, isFullScreen) {
             state.isFullScreen = isFullScreen
         },
         changeCollapse(state, isCollapse) {
             state.isCollapse = isCollapse
             document.documentElement.style.setProperty('--sidebar-width', isCollapse ? '54px' : '216px')
-        }
+        },
+
     }
 }
 

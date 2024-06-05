@@ -43,7 +43,7 @@ function getMenuRouterList(menu, parentList = []) {
             routers.push({
                 path: m.path,
                 name: componentName,
-                meta: { title: list.map(m => m.name) },
+                meta: { title: list.map(m => m.name), icon: list.map(m => m.icon) },
                 component: () => component
             })
         }

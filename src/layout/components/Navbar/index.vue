@@ -1,17 +1,41 @@
 <template>
   <div class="navbar">
     <Hamburger class="hamburger-container" />
-    <Breadcrumb />
+    <Breadcrumb v-if="showBreadcrumb" />
     <div class="right-menu">
       <HeaderSearch />
       <Screenfull />
       <ThemeSwitch />
       <el-divider direction="vertical" class="divider" />
-      <div class="avatar-wrapper" @click="openUserCenter = true">
-        <img :src="avatar" class="user-avatar" alt="avatar">
-        <span>&nbsp;管理员</span>
-        <UserCenter v-model="openUserCenter" />
-      </div>
+      <el-dropdown class="avatar-container" trigger="click">
+        <div class="avatar-wrapper">
+          <img src="@/assets/images/avatar.png" class="user-avatar" alt="avatar">
+          <span>&nbsp;管理员</span>
+          <Settings v-model="showSettings" />
+        </div>
+        <template #dropdown>
+          <el-dropdown-menu>
+            <el-dropdown-item @click="$router.push('user')">
+              <span>
+                <SvgIcon icon-class="user" />
+                个人中心
+              </span>
+            </el-dropdown-item>
+            <el-dropdown-item @click="showSettings = true">
+              <span>
+                <SvgIcon icon-class="setting" />
+                系统设置
+              </span>
+            </el-dropdown-item>
+            <el-dropdown-item divided @click="logout">
+              <span>
+                <SvgIcon icon-class="exit" />
+                退出登录
+              </span>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </template>
+      </el-dropdown>
     </div>
   </div>
 </template>
@@ -22,8 +46,8 @@ import Breadcrumb from "@/components/Breadcrumb";
 import HeaderSearch from "@/components/HeaderSearch";
 import Screenfull from "@/components/Screenfull";
 import ThemeSwitch from "@/components/ThemeSwitch";
-import UserCenter from "@/layout/components/UserCenter";
-import { mapGetters } from "vuex";
+import Settings from "@/layout/components/Settings";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "Navbar",
@@ -33,14 +57,29 @@ export default {
     HeaderSearch,
     Screenfull,
     ThemeSwitch,
-    UserCenter,
+    Settings,
   },
   data() {
     return {
-      openUserCenter: false,
+      showSettings: false,
     };
   },
-  computed: { ...mapGetters(["avatar"]) }
+  computed: { ...mapGetters(["avatar", "showBreadcrumb"]) },
+  methods: {
+    ...mapMutations(["changeLogin"]),
+    async logout() {
+      this.$confirm("确定要退出系统吗？", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+      })
+        .then(() => {
+          this.changeLogin(false);
+          this.$router.push("/login");
+        })
+        .catch(() => {});
+    },
+  },
 };
 </script>
 
@@ -62,7 +101,7 @@ export default {
   }
 
   .right-menu {
-    padding-right: 16px;
+    padding-right: 20px;
     float: right;
     height: 100%;
     line-height: 50px;

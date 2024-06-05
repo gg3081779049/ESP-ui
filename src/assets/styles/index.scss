@@ -71,3 +71,12 @@ html.dark {
     --el-table-header-bg-color: var(--el-fill-color-extra-light);
     --el-table-tr-bg-color: var(--el-fill-color-extra-light);
 }
+
+.el-dropdown__popper li {
+    svg {
+        fill: var(--el-text-color-regular);
+    }
+    &:hover svg, &:focus svg {
+        fill: var(--el-dropdown-menuItem-hover-color);
+    }
+}

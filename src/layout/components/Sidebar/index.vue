@@ -10,7 +10,7 @@
       <el-menu
         :default-active="$route.path.substring(1)" 
         :collapse="this.isCollapse" 
-        :unique-opened="isUniqueOpened" 
+        :unique-opened="isUniqueOpened"
         router>
         <MenuItem v-for="route in this.menuRouterTree" :key="route" :item="route" />
       </el-menu>
@@ -19,19 +19,21 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import MenuItem from "./MenuItem"
+import { mapGetters } from "vuex";
+import MenuItem from "./MenuItem";
 
 export default {
-  name: 'Sidebar',
+  name: "Sidebar",
   components: { MenuItem },
-  computed: { ...mapGetters(['menuRouterTree', 'isCollapse', 'isUniqueOpened']) },
+  computed: {
+    ...mapGetters(["menuRouterTree", "isCollapse", "isUniqueOpened"]),
+  },
   data() {
     return {
       title: process.env.VUE_APP_TITLE.toUpperCase(),
-    }
+    };
   },
-}
+};
 </script>
 
 <style lang="scss" scoped>

@@ -2,17 +2,18 @@
 <div class="tags-view-container">
   <scroll-pane ref="scrollPane" class="tags-view-wrapper" @scroll="closeMenu">
     <router-link
-      tag="span"
       ref="tag"
       class="tags-view-item"
       :class="{ 'active': tag.path === $route.path }"
       v-for="tag in visitedViews"
+      :draggable="$store.state.settings.draggable"
       :key="tag"
       :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
-      @click.middle.native="closeSelectedTag(tag)"
-      @contextmenu.prevent.native="openMenu($event, tag)">
+      @click.middle="closeSelectedTag(tag)"
+      @contextmenu.prevent="openMenu($event, tag)">
+      <SvgIcon :icon-class="tag.meta.icon.at(-1)" v-if="showTagsViewIcon && tag.meta.icon" />
       {{ tag.meta.title.at(-1) }}
-      <SvgIcon icon-class="close" v-if="tag.path !== '/home'" @click.prevent.stop="closeSelectedTag(tag)" />
+      <SvgIcon class="close-icon" icon-class="close" v-if="tag.path !== '/home'" @click.prevent.stop="closeSelectedTag(tag)" />
     </router-link>
   </scroll-pane>
   <ul class="contextmenu" v-show="visible" :style="{ left: left + 'px', top: top + 'px' }">
@@ -26,8 +27,9 @@
 </template>
 
 <script>
-import ScrollPane from './scrollPane'
-import { useDraggable } from 'vue-draggable-plus'
+import ScrollPane from "./scrollPane";
+import { useDraggable } from "vue-draggable-plus";
+import { mapGetters } from "vuex";
 
 export default {
   name: "TagsView",
@@ -37,155 +39,193 @@ export default {
       visible: false,
       left: 0,
       top: 0,
-      selectedTag: {}
-    }
+      selectedTag: {},
+    };
   },
   computed: {
-    visitedViews() {
-      return this.$store.state.tagsView.visitedViews
-    },
+    ...mapGetters(["visitedViews", "showTagsViewIcon"]),
     defaultViewIndex() {
-      return this.visitedViews.findIndex(v => v.name === this.$store.state.tagsView.defaultViewName)
+      return this.visitedViews.findIndex(
+        (v) => v.name === this.$store.state.tagsView.defaultViewName
+      );
     },
     selectedViewIndex() {
-      return this.visitedViews.findIndex(v => v.path === this.selectedTag.path)
+      return this.visitedViews.findIndex(
+        (v) => v.path === this.selectedTag.path
+      );
     },
     isDefaultView() {
-      return this.defaultViewIndex > -1 && this.selectedTag.path === this.visitedViews[this.defaultViewIndex].path
+      return (
+        this.defaultViewIndex > -1 &&
+        this.selectedTag.path === this.visitedViews[this.defaultViewIndex].path
+      );
     },
     showCloseLeft() {
-      return this.selectedViewIndex > (this.selectedViewIndex > this.defaultViewIndex ? 1 : 0)
+      return (
+        this.selectedViewIndex >
+        (this.selectedViewIndex > this.defaultViewIndex ? 1 : 0)
+      );
     },
     showCloseRight() {
-      return this.visitedViews.length - this.selectedViewIndex > (this.selectedViewIndex < this.defaultViewIndex ? 2 : 1)
-    }
+      return (
+        this.visitedViews.length - this.selectedViewIndex >
+        (this.selectedViewIndex < this.defaultViewIndex ? 2 : 1)
+      );
+    },
   },
   mounted() {
-    this.addTags()
-    let viewWrapper = this.$refs.scrollPane.$el.querySelector('.el-scrollbar__view')
+    this.addTags();
+    let viewWrapper = this.$refs.scrollPane.$el.querySelector(
+      ".el-scrollbar__view"
+    );
     useDraggable(viewWrapper, {
       animation: 150,
-      ghostClass: 'ghost',
+      ghostClass: "ghost",
       disabled: !this.$store.state.settings.draggable,
-      onUpdate: this.handleUpdate
-    }).start()
+      onUpdate: this.handleUpdate,
+    }).start();
   },
   methods: {
     openMenu(e, tag) {
-      this.left = Math.min(e.clientX - this.$el.getBoundingClientRect().left + 15, this.$el.offsetWidth - 105)
-      this.top = e.clientY - 50
-      this.visible = true
-      this.selectedTag = tag
+      this.left = Math.min(
+        e.clientX - this.$el.getBoundingClientRect().left + 15,
+        this.$el.offsetWidth - 105
+      );
+      this.top = e.clientY - 50;
+      this.visible = true;
+      this.selectedTag = tag;
     },
     closeMenu() {
-      this.visible = false
+      this.visible = false;
     },
     addTags() {
-      this.$store.commit('tagsView/addView', this.$route)
+      this.$store.commit("tagsView/addView", this.$route);
     },
     closeSelectedTag(tag) {
-      this.$store.commit('tagsView/delView', tag)
+      this.$store.commit("tagsView/delView", tag);
       if (tag.path === this.$route.path) {
-        this.$router.push(this.visitedViews.at(-1).fullPath)
+        this.$router.push(this.visitedViews.at(-1).fullPath);
       }
     },
     closeLeftTags() {
-      let currentIndex = this.visitedViews.findIndex(v => v.path === this.$route.path)
-      this.$store.commit('tagsView/delLeftView', this.selectedTag)
+      let currentIndex = this.visitedViews.findIndex(
+        (v) => v.path === this.$route.path
+      );
+      this.$store.commit("tagsView/delLeftView", this.selectedTag);
       if (currentIndex < this.selectedViewIndex) {
-        this.$router.push(this.visitedViews.at(-1).fullPath)
+        this.$router.push(this.visitedViews.at(-1).fullPath);
       }
     },
     closeRightTags() {
-      let currentIndex = this.visitedViews.findIndex(v => v.path === this.$route.path)
-      this.$store.commit('tagsView/delRightView', this.selectedTag)
+      let currentIndex = this.visitedViews.findIndex(
+        (v) => v.path === this.$route.path
+      );
+      this.$store.commit("tagsView/delRightView", this.selectedTag);
       if (currentIndex > this.selectedViewIndex) {
-        this.$router.push(this.visitedViews.at(-1).fullPath)
+        this.$router.push(this.visitedViews.at(-1).fullPath);
       }
     },
     closeOthersTags() {
-      this.$store.commit('tagsView/delOthersViews', this.selectedTag)
+      this.$store.commit("tagsView/delOthersViews", this.selectedTag);
       this.$router.push(this.selectedTag.fullPath);
     },
     closeAllTags() {
-      this.$store.commit('tagsView/delAllViews')
-      this.$router.push('/');
+      this.$store.commit("tagsView/delAllViews");
+      this.$router.push("/");
     },
     moveToCurrentTag() {
-      const tags = this.$refs.tag
+      const tags = this.$refs.tag;
       this.$nextTick(() => {
         for (const [index, tag] of tags.entries()) {
           if (tag.to.path === this.$route.path) {
-            const scrollContainer = this.$el.querySelector('.scroll-container')
-            const scrollWrapper = scrollContainer.querySelector(".el-scrollbar__wrap")
-            const tags = this.$refs.tag
+            const scrollContainer = this.$el.querySelector(".scroll-container");
+            const scrollWrapper = scrollContainer.querySelector(
+              ".el-scrollbar__wrap"
+            );
+            const tags = this.$refs.tag;
 
-            let containerWidth = scrollContainer.offsetWidth
-            let tagAndTagSpacing = 4
+            let containerWidth = scrollContainer.offsetWidth;
+            let tagAndTagSpacing = 4;
 
-            let firstTag = null
-            let lastTag = null
-            let prevTag = tags[index - 1]
-            let nextTag = tags[index + 1]
+            let firstTag = null;
+            let lastTag = null;
+            let prevTag = tags[index - 1];
+            let nextTag = tags[index + 1];
 
             if (tags.length > 0) {
-              firstTag = tags[0]
-              lastTag = tags.at(-1)
+              firstTag = tags[0];
+              lastTag = tags.at(-1);
             }
 
             if (firstTag === tag) {
-              scrollWrapper.scrollLeft = 0
+              scrollWrapper.scrollLeft = 0;
             } else if (lastTag === tag) {
-              scrollWrapper.scrollLeft = scrollWrapper.scrollWidth - containerWidth
+              scrollWrapper.scrollLeft =
+                scrollWrapper.scrollWidth - containerWidth;
             } else {
-              let afterNextTagOffsetLeft = nextTag.$el.offsetLeft + nextTag.$el.offsetWidth + tagAndTagSpacing
-              let beforePrevTagOffsetLeft = prevTag.$el.offsetLeft - tagAndTagSpacing
+              let afterNextTagOffsetLeft =
+                nextTag.$el.offsetLeft +
+                nextTag.$el.offsetWidth +
+                tagAndTagSpacing;
+              let beforePrevTagOffsetLeft =
+                prevTag.$el.offsetLeft - tagAndTagSpacing;
 
-              if (afterNextTagOffsetLeft > scrollWrapper.scrollLeft + containerWidth) {
-                scrollWrapper.scrollLeft = afterNextTagOffsetLeft - containerWidth
+              if (
+                afterNextTagOffsetLeft >
+                scrollWrapper.scrollLeft + containerWidth
+              ) {
+                scrollWrapper.scrollLeft =
+                  afterNextTagOffsetLeft - containerWidth;
               } else if (beforePrevTagOffsetLeft < scrollWrapper.scrollLeft) {
-                scrollWrapper.scrollLeft = beforePrevTagOffsetLeft
+                scrollWrapper.scrollLeft = beforePrevTagOffsetLeft;
               }
             }
 
-            break
+            break;
           }
         }
-      })
+      });
     },
     handleUpdate(e) {
-      this.$store.commit('tagsView/moveView', { oldIndex: e.oldIndex, newIndex: e.newIndex })
+      this.$store.commit("tagsView/moveView", {
+        oldIndex: e.oldIndex,
+        newIndex: e.newIndex,
+      });
       this.$refs.scrollPane.$nextTick(() => {
-        let pathNameList = [...this.$refs.scrollPane.$el.querySelectorAll('.el-scrollbar__view a')]
+        let pathNameList = [
+          ...this.$refs.scrollPane.$el.querySelectorAll(
+            ".el-scrollbar__view a"
+          ),
+        ];
         for (let i = 0; i < this.visitedViews.length; i++) {
           if (this.visitedViews[i].path !== pathNameList[i].pathname) {
-            console.log('标签发生位置异常');
+            console.log("标签发生位置异常");
           }
         }
-      })
-    }
+      });
+    },
   },
   watch: {
     $route() {
-      this.addTags()
-      this.moveToCurrentTag()
+      this.addTags();
+      this.moveToCurrentTag();
     },
     visible(value) {
       if (value) {
-        document.body.addEventListener('click', this.closeMenu)
+        document.body.addEventListener("click", this.closeMenu);
       } else {
-        document.body.removeEventListener('click', this.closeMenu)
+        document.body.removeEventListener("click", this.closeMenu);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 .tags-view-container {
   width: 100%;
   height: 34px;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .12), 0 0 3px 0 rgba(0, 0, 0, .04);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
   position: relative;
 
   .tags-view-wrapper {
@@ -207,13 +247,15 @@ export default {
       svg {
         width: 12px;
         height: 12px;
-        border-radius: 50%;
         fill: var(--el-color-primary);
-        transition: all .3s cubic-bezier(.645, .045, .355, 1);
-        &:hover {
-          background: hsl(120, 19%, 75%);
-          fill: var(--el-color-primary-light-8);
-          transform: scale(1.1);
+        &.close-icon {
+          border-radius: 50%;
+          transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+          &:hover {
+            background: hsl(120, 19%, 75%);
+            fill: var(--el-color-primary-light-8);
+            transform: scale(1.1);
+          }
         }
       }
 
@@ -240,7 +282,7 @@ export default {
     padding: 5px 0;
     border-radius: 4px;
     background: var(--el-bg-color-overlay);
-    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, .3);
+    box-shadow: 2px 2px 3px 0 rgba(0, 0, 0, 0.3);
     font-size: 12px;
     font-weight: 400;
     position: absolute;
@@ -266,7 +308,7 @@ export default {
 }
 
 .tags-view-container::before {
-  content: '';
+  content: "";
   width: 100%;
   height: 34px;
   background: var(--navbar-background);

@@ -7,7 +7,7 @@
       filterable
       default-first-option
       remote
-      placeholder="Search"
+      placeholder="搜索"
       class="header-search-select"
       :remote-method="querySearch"
       @change="change">
@@ -17,56 +17,61 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import Fuse from 'fuse.js'
+import { mapGetters } from "vuex";
+import Fuse from "fuse.js";
 
 export default {
-    name: 'HeaderSearch',
-    data() {
-      return {
-        show: false,
-        search: '',
-        options: [],
-        searchPool: [],
-        fuse: null
+  name: "HeaderSearch",
+  data() {
+    return {
+      show: false,
+      search: "",
+      options: [],
+      searchPool: [],
+      fuse: null,
+    };
+  },
+  computed: { ...mapGetters(["menuRouterList"]) },
+  created() {
+    this.searchPool = this.menuRouterList.map((item) => ({
+      title: item.meta.title.join(" > "),
+      path: item.path,
+    }));
+    this.fuse = new Fuse(this.searchPool, {
+      shouldSort: true,
+      threshold: 0.4,
+      location: 0,
+      distance: 100,
+      minMatchCharLength: 1,
+      keys: [{ name: "title", weight: 0.7 }],
+    });
+  },
+  methods: {
+    click() {
+      this.show = !this.show;
+      // 自动聚焦
+      if (this.show) {
+        this.$nextTick(() => {
+          this.$refs.headerSearchSelect.focus();
+        });
       }
     },
-    computed: { ...mapGetters(['menuRouterList']) },
-    created() {
-      this.searchPool = this.menuRouterList.map(item => ({ title: item.meta.title.join(' > '), path: item.path }))
-      this.fuse = new Fuse(this.searchPool, {
-        shouldSort: true,
-        threshold: 0.4,
-        location: 0,
-        distance: 100,
-        minMatchCharLength: 1,
-        keys: [{ name: 'title', weight: 0.7 }]
-      })
+    querySearch(query) {
+      if (query[0] !== " " && query[0] !== ">") {
+        this.options = this.fuse
+          .search(query)
+          .map((item) => ({ label: item.item.title, value: item.item.path }));
+      } else {
+        this.options = [];
+      }
     },
-    methods: {
-        click() {
-          this.show = !this.show
-          // 自动聚焦
-          if (this.show) {
-            this.$nextTick(() => {
-              this.$refs.headerSearchSelect.focus()
-            })
-          }
-        },
-        querySearch(query) {
-          if (query[0] !== ' ' && query[0] !== '>') {
-            this.options = this.fuse.search(query).map(item => ({ label: item.item.title, value: item.item.path }))
-          } else {
-            this.options = []
-          }
-        },
-        change(val) {
-          this.$router.push(val)
-          this.search = ''
-          this.options = []
-        },
-    }
-}
+    change(val) {
+      this.$router.push(val);
+      this.search = "";
+      this.options = [];
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>

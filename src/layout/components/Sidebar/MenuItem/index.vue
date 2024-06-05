@@ -13,17 +13,15 @@
 </template>
 
 <script>
-import SvgIcon from "@/components/SvgIcon";
 export default {
   name: "MenuItem",
-  components: { SvgIcon },
   props: {
     item: {
       type: Object,
-      required: true
+      required: true,
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
