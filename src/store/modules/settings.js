@@ -10,6 +10,7 @@ const settings = {
         showTagsViewIcon: defaultSettings.showTagsViewIcon,
         isUniqueOpened: defaultSettings.isUniqueOpened,
         draggable: defaultSettings.draggable,
+        watermark: defaultSettings.watermark,
         isActivateAnimation: true,
         isFullScreen: false,
         isCollapse: false,

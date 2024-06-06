@@ -1,16 +1,18 @@
 <template>
-  <div class="app-wrapper">
-    <Sidebar class="sidebar-container" />
-    <div class="main-container">
-      <el-scrollbar>
-        <div :class="{ 'fixed-header': fixedHeader }">
+  <el-container>
+    <el-aside>
+      <Sidebar />
+    </el-aside>
+    <el-main>
+      <el-scrollbar class="main-scrollbar">
+        <div :style="{ position: fixedHeader ? 'absolute' : '' }">
           <Navbar />
           <TagsView v-if="showTagsView" />
         </div>
-        <AppMain />
+        <AppMain :style="{ marginTop: fixedHeader ? showTagsView ? '84px' : '50px' : '0' }" />
       </el-scrollbar>
-    </div>
-  </div>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
@@ -30,40 +32,26 @@ export default {
 };
 </script>
 
-<style scoped>
-.app-wrapper {
+<style lang="scss" scoped>
+.el-container {
   width: 100vw;
   height: 100vh;
   background: var(--base-background);
-}
-
-.sidebar-container {
-  width: var(--sidebar-width);
-  height: 100%;
-  background-color: var(--sidebar-background);
-  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
-  -webkit-box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
-  -webkit-transition: width 0.28s;
-  overflow: hidden;
-  position: fixed;
-  left: 0;
-  top: 0;
-  transition: width 0.28s;
-}
-
-.main-container {
-  height: 100%;
-  transition: margin-left 0.28s;
-  margin-left: var(--sidebar-width);
-  position: relative;
-}
-
-.fixed-header {
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 9;
-  width: calc(100% - var(--sidebar-width));
-  transition: width 0.28s;
+  .el-aside {
+    width: auto;
+    overflow: visible;
+    z-index: 10;
+  }
+  .el-main {
+    padding: 0;
+    .main-scrollbar {
+      .el-scrollbar__view > div {
+        width: 100%;
+        right: 0;
+        top: 0;
+        z-index: 10;
+      }
+    }
+  }
 }
 </style>

@@ -22,4 +22,7 @@ export default {
 
     // 是否开启标签拖拽
     draggable: true,
+
+    // 是否开启水印
+    watermark: true,
 }

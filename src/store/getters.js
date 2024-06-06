@@ -10,6 +10,7 @@ const getters = {
     isCollapse: state => state.settings.isCollapse,
     isUniqueOpened: state => state.settings.isUniqueOpened,
     draggable: state => state.settings.draggable,
+    watermark: state => state.settings.watermark,
     // menu
     menuRouterTree: state => state.menu.menuRouterTree,
     menuRouterList: state => state.menu.menuRouterList,
@@ -18,4 +19,5 @@ const getters = {
     // tagsView
     visitedViews: state => state.tagsView.visitedViews,
 }
+
 export default getters

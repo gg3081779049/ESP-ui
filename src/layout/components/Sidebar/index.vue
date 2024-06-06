@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="sidebar-container">
     <div class="sidebar-logo-container">
       <img draggable="false" src="@/assets/logo/logo.png" alt="logo">
       <transition name="el-zoom-in-center">
@@ -37,32 +37,44 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.sidebar-logo-container {
-  width: 100%;
-  height: 50px;
-  background: var(--logo-background);
-  line-height: 50px;
-  text-align: center;
+.sidebar-container {
+  width: var(--sidebar-width);
+  height: 100%;
+  background-color: var(--sidebar-background);
+  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
   overflow: hidden;
-
-  img {
-    width: 32px;
-    height: 24px;
-    vertical-align: middle;
-    cursor: pointer;
-  }
-
-  h1 {
-    margin-left: 12px;
-    display: inline-block;
-    color: var(--logo-title-color);
-    font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.28s;
+  -webkit-box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+  -webkit-transition: width 0.28s;
+  .sidebar-logo-container {
+    width: 100%;
+    height: 50px;
+    background: var(--logo-background);
     line-height: 50px;
-    font-size: 14px;
-    font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
-    vertical-align: middle;
-    transition: 0.5s;
-    cursor: pointer;
+    text-align: center;
+    overflow: hidden;
+
+    img {
+      width: 32px;
+      height: 24px;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+
+    h1 {
+      margin-left: 12px;
+      display: inline-block;
+      color: var(--logo-title-color);
+      font-weight: 600;
+      line-height: 50px;
+      font-size: 14px;
+      font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+      vertical-align: middle;
+      transition: 0.5s;
+      cursor: pointer;
+    }
   }
 }
 </style>

@@ -1,17 +1,19 @@
 <template>
-  <div class="navbar">
+  <div class="navbar-container">
     <Hamburger class="hamburger-container" />
     <Breadcrumb v-if="showBreadcrumb" />
+    <Settings v-model="showSettings" />
     <div class="right-menu">
       <HeaderSearch />
       <Screenfull />
       <ThemeSwitch />
       <el-divider direction="vertical" class="divider" />
-      <el-dropdown class="avatar-container" trigger="click">
+      <el-dropdown class="avatar-container" trigger="click" 
+        @visible-change="$refs['arrow-right'].$el.style.transform=`rotate(${$event * 90}deg)`">
         <div class="avatar-wrapper">
           <img src="@/assets/images/avatar.png" class="user-avatar" alt="avatar">
           <span>&nbsp;管理员</span>
-          <Settings v-model="showSettings" />
+          <SvgIcon icon-class="arrow-right" ref="arrow-right" />
         </div>
         <template #dropdown>
           <el-dropdown-menu>
@@ -84,12 +86,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.navbar {
+.navbar-container {
+  width: 100%;
   height: 50px;
   overflow: hidden;
   position: relative;
   background: var(--navbar-background);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
+  z-index: 1;
 
   .hamburger-container {
     height: 100%;
@@ -101,7 +105,7 @@ export default {
   }
 
   .right-menu {
-    padding-right: 20px;
+    padding-right: 12px;
     float: right;
     height: 100%;
     line-height: 50px;
@@ -127,12 +131,18 @@ export default {
         height: 32px;
         border-radius: 50%;
         box-sizing: border-box;
-        &:hover + span {
+      }
+      svg {
+        fill: var(--navbar-icon-color);
+        transition: var(--el-transition-duration);
+      }
+      &:hover {
+        span {
           color: var(--el-color-primary);
         }
-      }
-      span:hover {
-        color: var(--el-color-primary);
+        svg {
+          fill: var(--el-color-primary);
+        }
       }
     }
   }

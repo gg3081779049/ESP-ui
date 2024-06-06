@@ -313,7 +313,6 @@ export default {
   height: 34px;
   background: var(--navbar-background);
   position: absolute;
-  z-index: -1;
   opacity: 0.7;
 }
 </style>

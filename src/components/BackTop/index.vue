@@ -1,5 +1,5 @@
 <template>
-  <el-backtop target=".main-container .el-scrollbar__wrap" :visibility-height="120" title="返回顶部" class="backtop-btn">
+  <el-backtop target=".main-scrollbar .el-scrollbar__wrap" :visibility-height="120" title="返回顶部" class="backtop-btn">
     <template #default>
       <SvgIcon icon-class="backtop" />
     </template>
