@@ -1,31 +1,32 @@
 <template>
-  <SvgIcon class="screenfull-svg" :icon-class="isFullScreen ? 'exit-fullscreen' : 'fullscreen'" @click="click" />
+  <SvgIcon :icon-class="isFullScreen ? 'exit-fullscreen' : 'fullscreen'" @click="toggle" />
 </template>
 
 <script>
-import screenfull from 'screenfull'
-import { mapMutations, mapGetters } from 'vuex'
+import screenfull from "screenfull";
 
 export default {
-  name: 'Screenfull',
-  computed: { ...mapGetters(['isFullScreen']) },
+  name: "Screenfull",
+  data() {
+    return {
+      isFullScreen: false,
+    };
+  },
   methods: {
-    ...mapMutations(['changeFullScreen']),
-    click() {
+    toggle() {
       if (screenfull.isEnabled) {
-        screenfull.toggle()
-        this.changeFullScreen(!screenfull.isFullscreen)
+        screenfull.toggle();
+        this.isFullScreen ^= true;
       } else {
-        this.$message({ message: '你的浏览器不支持全屏', type: 'warning' })
-        return false
+        this.$message({ message: "你的浏览器不支持全屏", type: "warning" });
       }
     },
   },
-}
+};
 </script>
 
 <style scoped>
-.screenfull-svg {
+svg {
   width: 1em;
   height: 1em;
   fill: var(--navbar-icon-color);

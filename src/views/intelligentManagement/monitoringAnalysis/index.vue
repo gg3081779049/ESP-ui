@@ -195,7 +195,7 @@ export default {
           this.form[key] = "";
         }
       }
-      this.resetForm("form");
+      this.$resetForm("form");
     },
     /** 搜索按钮操作 */
     handleQuery() {
@@ -203,7 +203,7 @@ export default {
     },
     /** 重置按钮操作 */
     resetQuery() {
-      this.resetForm("queryForm");
+      this.$resetForm("queryForm");
       this.queryParams.pageNum = 1;
       this.queryParams.pageSize = 10;
       this.queryParams.location = null;
@@ -288,7 +288,7 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download(
+      this.$download(
         "/export",
         {
           ...this.queryParams,

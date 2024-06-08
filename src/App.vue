@@ -11,8 +11,8 @@ export default {
 </script>
 
 <style>
-.app-container {
-  box-sizing: border-box;
-  padding: 20px;
+* {
+  margin: 0;
+  padding: 0;
 }
 </style>

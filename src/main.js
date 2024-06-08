@@ -15,15 +15,17 @@ import BackTop from '@/components/BackTop'
 // 全局方法
 import { copyText, resetForm } from '@/utils/index'
 import { download } from '@/utils/request'
+import model from '@/utils/model'
 
 const app = createApp(App)
 
 // 禁用生产提示信息
 app.config.productionTip = false
 
-app.config.globalProperties.copyText = copyText
-app.config.globalProperties.resetForm = resetForm
-app.config.globalProperties.download = download
+app.config.globalProperties.$copyText = copyText
+app.config.globalProperties.$resetForm = resetForm
+app.config.globalProperties.$download = download
+app.config.globalProperties.$model = model
 
 app.component(SvgIcon.name || 'SvgIcon', SvgIcon)
 app.component(RightToolbar.name || 'RightToolbar', RightToolbar)

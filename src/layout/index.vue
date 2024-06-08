@@ -40,7 +40,7 @@ export default {
   .el-aside {
     width: auto;
     overflow: visible;
-    z-index: 10;
+    z-index: 11;
   }
   .el-main {
     padding: 0;

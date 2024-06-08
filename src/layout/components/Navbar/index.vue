@@ -8,7 +8,7 @@
       <Screenfull />
       <ThemeSwitch />
       <el-divider direction="vertical" class="divider" />
-      <el-dropdown class="avatar-container" trigger="click" 
+      <el-dropdown class="avatar-container" trigger="click" teleported
         @visible-change="$refs['arrow-right'].$el.style.transform=`rotate(${$event * 90}deg)`">
         <div class="avatar-wrapper">
           <img src="@/assets/images/avatar.png" class="user-avatar" alt="avatar">

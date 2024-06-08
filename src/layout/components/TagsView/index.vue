@@ -43,7 +43,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["visitedViews", "showTagsViewIcon"]),
+    ...mapGetters(["visitedViews", "showTagsViewIcon", "draggable"]),
     defaultViewIndex() {
       return this.visitedViews.findIndex(
         (v) => v.name === this.$store.state.tagsView.defaultViewName
@@ -75,15 +75,15 @@ export default {
   },
   mounted() {
     this.addTags();
-    let viewWrapper = this.$refs.scrollPane.$el.querySelector(
-      ".el-scrollbar__view"
-    );
-    useDraggable(viewWrapper, {
-      animation: 150,
-      ghostClass: "ghost",
-      disabled: !this.$store.state.settings.draggable,
-      onUpdate: this.handleUpdate,
-    }).start();
+    useDraggable(
+      this.$refs.scrollPane.$el.querySelector(".el-scrollbar__view"),
+      {
+        animation: 150,
+        ghostClass: "ghost",
+        disabled: !this.draggable,
+        onUpdate: this.handleUpdate,
+      }
+    ).start();
   },
   methods: {
     openMenu(e, tag) {

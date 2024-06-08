@@ -2,7 +2,6 @@
 @import url('./dark.scss');
 
 html.light {
-    --sidebar-width: 216px;
     --el-color-primary: #67c23a;
 
     --el-color-primary-light-3: #95d475;
@@ -14,7 +13,6 @@ html.light {
 }
 
 html.dark {
-    --sidebar-width: 216px;
     --el-color-primary: #64bc38;
 
     --el-color-primary-light-3: #4f8e2f;
@@ -23,6 +21,11 @@ html.dark {
     --el-color-primary-light-8: #25371c;
     --el-color-primary-light-9: #1c2518;
     --el-color-primary-dark-2: #85ce61;
+}
+
+.app-container {
+    box-sizing: border-box;
+    padding: 20px;
 }
 
 .el-button {
@@ -76,7 +79,9 @@ html.dark {
     svg {
         fill: var(--el-text-color-regular);
     }
-    &:hover svg, &:focus svg {
+
+    &:hover svg,
+    &:focus svg {
         fill: var(--el-dropdown-menuItem-hover-color);
     }
 }

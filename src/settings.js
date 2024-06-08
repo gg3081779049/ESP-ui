@@ -17,12 +17,15 @@ export default {
     // 是否显示标签页图标
     showTagsViewIcon: false,
 
-    // 是否只保持一个子菜单的展开
-    isUniqueOpened: true,
-
     // 是否开启标签拖拽
     draggable: true,
 
+    // 侧边栏宽度
+    sidebarWidth: 216,
+
+    // 是否只保持一个子菜单展开
+    isUniqueOpened: true,
+
     // 是否开启水印
-    watermark: true,
+    watermark: false,
 }

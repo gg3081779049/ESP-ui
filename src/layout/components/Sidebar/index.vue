@@ -1,18 +1,18 @@
 <template>
-  <div class="sidebar-container">
+  <div class="sidebar-container" :style="{ width: `${isCollapse ? 54 : sidebarWidth}px` }">
     <div class="sidebar-logo-container">
       <img draggable="false" src="@/assets/logo/logo.png" alt="logo">
       <transition name="el-zoom-in-center">
-        <h1 v-show="!this.isCollapse">{{ title }}</h1>
+        <h1 v-show="!isCollapse">{{ title }}</h1>
       </transition>
     </div>
     <el-scrollbar>
       <el-menu
         :default-active="$route.path.substring(1)" 
-        :collapse="this.isCollapse" 
+        :collapse="isCollapse"
         :unique-opened="isUniqueOpened"
         router>
-        <MenuItem v-for="route in this.menuRouterTree" :key="route" :item="route" />
+        <MenuItem v-for="route in menuRouterTree" :key="route" :item="route" />
       </el-menu>
     </el-scrollbar>
   </div>
@@ -26,7 +26,12 @@ export default {
   name: "Sidebar",
   components: { MenuItem },
   computed: {
-    ...mapGetters(["menuRouterTree", "isCollapse", "isUniqueOpened"]),
+    ...mapGetters([
+      "menuRouterTree",
+      "isCollapse",
+      "isUniqueOpened",
+      "sidebarWidth",
+    ]),
   },
   data() {
     return {
@@ -38,9 +43,8 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar-container {
-  width: var(--sidebar-width);
   height: 100%;
-  background-color: var(--sidebar-background);
+  background: var(--sidebar-background);
   box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
   overflow: hidden;
   display: flex;
