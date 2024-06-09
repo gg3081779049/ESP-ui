@@ -9,7 +9,7 @@
           <Navbar />
           <TagsView v-if="showTagsView" />
         </div>
-        <AppMain :style="{ marginTop: fixedHeader ? showTagsView ? '84px' : '50px' : '0' }" />
+        <AppMain :style="{ marginTop: `${fixedHeader ? showTagsView ? 84 : 50 : 0}px` }" />
       </el-scrollbar>
     </el-main>
   </el-container>

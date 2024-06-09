@@ -2,6 +2,9 @@ export default {
     // 主题
     theme: 'light',
 
+    // 布局
+    layout: 'vertical',
+
     // 是否固定头部
     fixedHeader: true,
 

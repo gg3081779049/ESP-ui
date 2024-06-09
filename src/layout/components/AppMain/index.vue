@@ -20,3 +20,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.app-container {
+  box-sizing: border-box;
+  padding: 20px;
+}
+</style>

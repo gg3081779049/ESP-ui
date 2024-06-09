@@ -104,6 +104,13 @@ export default {
     }
   }
 
+  .el-breadcrumb {
+    height: 100%;
+    ::v-deep .el-breadcrumb__item {
+      height: 100%;
+    }
+  }
+
   .right-menu {
     padding-right: 12px;
     float: right;

@@ -6,6 +6,12 @@
   </el-backtop>
 </template>
 
+<script>
+export default {
+  name: "BackTop",
+};
+</script>
+
 <style lang="scss" scoped>
 .backtop-btn {
   width: 32px;
