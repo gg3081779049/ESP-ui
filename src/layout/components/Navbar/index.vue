@@ -3,43 +3,19 @@
     <div class="left-menu">
       <Hamburger class="hamburger-container" />
       <Breadcrumb v-if="showBreadcrumb" />
-      <Settings v-model="showSettings" />
     </div>
     <div class="right-menu">
       <HeaderSearch />
       <Screenfull />
       <ThemeSwitch />
       <el-divider direction="vertical" class="divider" />
-      <el-dropdown class="avatar-container" trigger="click" teleported
-        @visible-change="$refs['arrow-right'].$el.style.transform=`rotate(${$event * 90}deg)`">
+      <AvatarBox @visible-change="$refs['arrow-right'].$el.style.transform=`rotate(${$event * 90}deg)`">
         <div class="avatar-wrapper">
           <img src="@/assets/images/avatar.png" class="user-avatar" alt="avatar">
           <span>&nbsp;管理员</span>
           <SvgIcon icon-class="arrow-right" ref="arrow-right" />
         </div>
-        <template #dropdown>
-          <el-dropdown-menu>
-            <el-dropdown-item @click="$router.push('user')">
-              <span>
-                <SvgIcon icon-class="user" />
-                个人中心
-              </span>
-            </el-dropdown-item>
-            <el-dropdown-item @click="showSettings = true">
-              <span>
-                <SvgIcon icon-class="setting" />
-                系统设置
-              </span>
-            </el-dropdown-item>
-            <el-dropdown-item divided @click="logout">
-              <span>
-                <SvgIcon icon-class="exit" />
-                退出登录
-              </span>
-            </el-dropdown-item>
-          </el-dropdown-menu>
-        </template>
-      </el-dropdown>
+      </AvatarBox>
     </div>
   </div>
 </template>
@@ -50,7 +26,7 @@ import Breadcrumb from "@/components/Breadcrumb";
 import HeaderSearch from "@/components/HeaderSearch";
 import Screenfull from "@/components/Screenfull";
 import ThemeSwitch from "@/components/ThemeSwitch";
-import Settings from "@/layout/components/Settings";
+import AvatarBox from "@/components/AvatarBox";
 import { mapGetters, mapMutations } from "vuex";
 
 export default {
@@ -61,16 +37,11 @@ export default {
     HeaderSearch,
     Screenfull,
     ThemeSwitch,
-    Settings,
-  },
-  data() {
-    return {
-      showSettings: false,
-    };
+    AvatarBox,
   },
   computed: { ...mapGetters(["avatar", "showBreadcrumb"]) },
   methods: {
-    ...mapMutations(["changeLogin"]),
+    ...mapMutations(["changeLogin", "changeShowSettings"]),
     async logout() {
       this.$confirm("确定要退出系统吗？", "提示", {
         confirmButtonText: "确定",
