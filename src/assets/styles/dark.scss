@@ -1,16 +1,24 @@
 //黑夜模式
-.dark {
+html.dark {
     --base-background: rgb(20, 20, 20);
     --logo-title-color: rgb(238, 238, 238);
-    --logo-background: rgb(46, 63, 54);
+    --logo-background: hsl(150, 16%, 21%);
     /* sidebar */
-    --sidebar-background: hsl(147, 32%, 26%);
-    --sidebar-background-hover: rgb(45, 81, 61);
-    --sidebar-menu-background: rgb(31, 61, 45);
-    --sidebar-menu-background-hover: rgb(0, 40, 21);
-    --sidebar-text: rgb(191, 217, 203);
+    --sidebar-background: hsl(150, 32%, 26%);
+    --sidebar-background-hover: hsl(150, 29%, 24%);
+    --sidebar-menu-background: hsl(150, 33%, 18%);
+    --sidebar-menu-background-hover: hsl(150, 80%, 10%);
+    --sidebar-text: hsl(150, 25%, 80%);
     --sidebar-text-active: var(--el-color-primary);
     /* navbar */
     --navbar-background: hsl(147, 10%, 13%);
     --navbar-icon-color: rgb(204, 204, 204);
+    /* element */
+    --el-color-primary: #64bc38;
+    --el-color-primary-light-3: #4f8e2f;
+    --el-color-primary-light-5: #3e6b27;
+    --el-color-primary-light-7: #2d481f;
+    --el-color-primary-light-8: #25371c;
+    --el-color-primary-light-9: #1c2518;
+    --el-color-primary-dark-2: #85ce61;
 }

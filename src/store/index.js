@@ -4,6 +4,7 @@ import getters from '@/store/getters'
 import user from '@/store/modules/user'
 import settings from '@/store/modules/settings'
 import menu from '@/store/modules/menu'
+import app from '@/store/modules/app'
 import tagsView from '@/store/modules/tagsView'
 
 const store = createStore({
@@ -14,6 +15,7 @@ const store = createStore({
         tagsView,
         settings,
         menu,
+        app,
     },
     getters,
 });

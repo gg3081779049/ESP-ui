@@ -27,7 +27,7 @@ export default {
     sidebarWidth: 216,
 
     // 是否只保持一个子菜单展开
-    isUniqueOpened: true,
+    uniqueOpened: true,
 
     // 是否开启水印
     watermark: false,

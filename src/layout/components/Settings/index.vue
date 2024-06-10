@@ -28,12 +28,8 @@
         <el-switch v-model="settings.draggable" />
       </div>
       <div class="setting-item">
-        <span>侧边栏宽度</span>
-        <el-input-number v-model="settings.sidebarWidth" controls-position="right" min="180" max="300" value-on-clear="min" />
-      </div>
-      <div class="setting-item">
         <span>只保持一个子菜单展开</span>
-        <el-switch v-model="settings.isUniqueOpened" />
+        <el-switch v-model="settings.uniqueOpened" />
       </div>
       <div class="setting-item">
         <span>开启水印</span>
@@ -80,6 +76,7 @@ export default {
       setTimeout(() => this.$model.closeLoading(), 900);
     },
     ...mapMutations([
+      "changeLayout",
       "changeFixedHeader",
       "changeShowBreadcrumb",
       "changeShowBreadcrumbIcon",
@@ -87,11 +84,14 @@ export default {
       "changeShowTagsViewIcon",
       "changeDraggable",
       "changeSidebarWidth",
-      "changeIsUniqueOpened",
+      "changeUniqueOpened",
       "changeWatermark",
     ]),
   },
   watch: {
+    "settings.layout"(layout) {
+      this.changeLayout(layout);
+    },
     "settings.fixedHeader"(fixedHeader) {
       this.changeFixedHeader(fixedHeader);
     },
@@ -113,8 +113,8 @@ export default {
     "settings.sidebarWidth"(sidebarWidth) {
       this.changeSidebarWidth(sidebarWidth);
     },
-    "settings.isUniqueOpened"(isUniqueOpened) {
-      this.changeIsUniqueOpened(isUniqueOpened);
+    "settings.uniqueOpened"(uniqueOpened) {
+      this.changeUniqueOpened(uniqueOpened);
     },
     "settings.watermark"(watermark) {
       this.changeWatermark(watermark);
@@ -145,7 +145,7 @@ export default {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 15px;
+      font-size: 14px;
       color: var(--el-text-color-primary);
 
       .el-input-number {

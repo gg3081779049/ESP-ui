@@ -5,6 +5,7 @@ const storageSettings = JSON.parse(localStorage.getItem('system-settings')) || '
 const settings = {
     state: {
         theme: storageSettings.theme === undefined ? defaultSettings.theme : storageSettings.theme,
+        layout: storageSettings.layout === undefined ? defaultSettings.layout : storageSettings.layout,
         fixedHeader: storageSettings.fixedHeader === undefined ? defaultSettings.fixedHeader : storageSettings.fixedHeader,
         showBreadcrumb: storageSettings.showBreadcrumb === undefined ? defaultSettings.showBreadcrumb : storageSettings.showBreadcrumb,
         showBreadcrumbIcon: storageSettings.showBreadcrumbIcon === undefined ? defaultSettings.showBreadcrumbIcon : storageSettings.showBreadcrumbIcon,
@@ -12,9 +13,8 @@ const settings = {
         showTagsViewIcon: storageSettings.showTagsViewIcon === undefined ? defaultSettings.showTagsViewIcon : storageSettings.showTagsViewIcon,
         draggable: storageSettings.draggable === undefined ? defaultSettings.draggable : storageSettings.draggable,
         sidebarWidth: storageSettings.sidebarWidth === undefined ? defaultSettings.sidebarWidth : storageSettings.sidebarWidth,
-        isUniqueOpened: storageSettings.isUniqueOpened === undefined ? defaultSettings.isUniqueOpened : storageSettings.isUniqueOpened,
+        uniqueOpened: storageSettings.uniqueOpened === undefined ? defaultSettings.uniqueOpened : storageSettings.uniqueOpened,
         watermark: storageSettings.watermark === undefined ? defaultSettings.watermark : storageSettings.watermark,
-        isCollapse: false,
         isActivateAnimation: true,
     },
     mutations: {
@@ -30,9 +30,8 @@ const settings = {
                         let x = themeSwitch.getBoundingClientRect()['x'];
                         let y = themeSwitch.getBoundingClientRect()['y'];
                         let r = Math.hypot(Math.max(window.innerWidth - x, x), Math.max(window.innerHeight - y, y));
-                        document.documentElement.animate({
-                            clipPath: [`circle(0% at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`]
-                        }, {
+                        let clipPath = [`circle(0% at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`]
+                        document.documentElement.animate({ clipPath }, {
                             duration: 500,
                             pseudoElement: '::view-transition-new(root)'
                         })
@@ -41,6 +40,9 @@ const settings = {
             } catch (e) {
                 document.documentElement.className = theme
             }
+        },
+        changeLayout(state, layout) {
+            state.layout = layout
         },
         changeFixedHeader(state, fixedHeader) {
             state.fixedHeader = fixedHeader
@@ -64,14 +66,11 @@ const settings = {
         changeSidebarWidth(state, sidebarWidth) {
             state.sidebarWidth = sidebarWidth
         },
-        changeIsUniqueOpened(state, isUniqueOpened) {
-            state.isUniqueOpened = isUniqueOpened
+        changeUniqueOpened(state, uniqueOpened) {
+            state.uniqueOpened = uniqueOpened
         },
         changeWatermark(state, watermark) {
             state.watermark = watermark
-        },
-        changeCollapse(state, isCollapse) {
-            state.isCollapse = isCollapse
         },
     }
 }

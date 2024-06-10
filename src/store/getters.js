@@ -1,6 +1,7 @@
 const getters = {
     // settings
     theme: state => state.settings.theme,
+    layout: state => state.settings.layout,
     fixedHeader: state => state.settings.fixedHeader,
     showBreadcrumb: state => state.settings.showBreadcrumb,
     showBreadcrumbIcon: state => state.settings.showBreadcrumbIcon,
@@ -8,9 +9,8 @@ const getters = {
     showTagsViewIcon: state => state.settings.showTagsViewIcon,
     draggable: state => state.settings.draggable,
     sidebarWidth: state => state.settings.sidebarWidth,
-    isUniqueOpened: state => state.settings.isUniqueOpened,
+    uniqueOpened: state => state.settings.uniqueOpened,
     watermark: state => state.settings.watermark,
-    isCollapse: state => state.settings.isCollapse,
     // menu
     menuRouterTree: state => state.menu.menuRouterTree,
     menuRouterList: state => state.menu.menuRouterList,
@@ -18,6 +18,9 @@ const getters = {
     avatar: state => state.user.avatar,
     // tagsView
     visitedViews: state => state.tagsView.visitedViews,
+    // app
+    collapse: state => state.app.collapse,
+    showSettings: state => state.app.showSettings,
 }
 
 export default getters

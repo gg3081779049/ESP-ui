@@ -1,27 +1,26 @@
 <template>
-  <SvgIcon iconClass="hamburger" className="hamburger" :style="{ transform: this.isCollapse ? '' : 'rotate(180deg)' }" @click="toggleClick" />
+  <SvgIcon iconClass="hamburger" className="hamburger" :style="{ transform: collapse ? '' : 'rotate(180deg)' }" @click="toggleClick" />
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "Hamburger",
-  computed: { ...mapGetters(['isCollapse']) },
+  computed: { ...mapGetters(["collapse"]) },
   methods: {
-    ...mapMutations(['changeCollapse']),
+    ...mapMutations(["changeCollapse"]),
     toggleClick() {
-      this.changeCollapse(!this.isCollapse)
-    }
-  }
-}
+      this.changeCollapse(!this.collapse);
+    },
+  },
+};
 </script>
 
 <style scoped>
 .hamburger {
   width: 20px;
   height: 20px;
-  padding: 0 15px;
   fill: var(--navbar-icon-color);
 }
 </style>

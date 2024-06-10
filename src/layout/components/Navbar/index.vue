@@ -1,8 +1,10 @@
 <template>
   <div class="navbar-container">
-    <Hamburger class="hamburger-container" />
-    <Breadcrumb v-if="showBreadcrumb" />
-    <Settings v-model="showSettings" />
+    <div class="left-menu">
+      <Hamburger class="hamburger-container" />
+      <Breadcrumb v-if="showBreadcrumb" />
+      <Settings v-model="showSettings" />
+    </div>
     <div class="right-menu">
       <HeaderSearch />
       <Screenfull />
@@ -89,31 +91,30 @@ export default {
 .navbar-container {
   width: 100%;
   height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   overflow: hidden;
   position: relative;
   background: var(--navbar-background);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
   z-index: 1;
 
-  .hamburger-container {
-    height: 100%;
-    float: left;
-    cursor: pointer;
-    &:hover {
-      background: rgba(0, 0, 0, 0.025);
-    }
-  }
-
-  .el-breadcrumb {
-    height: 100%;
-    ::v-deep .el-breadcrumb__item {
-      height: 100%;
+  .left-menu {
+    display: flex;
+    align-items: center;
+    .hamburger-container {
+      margin: 0 8px;
+      padding: 7px;
+      cursor: pointer;
+      &:hover {
+        background: rgba(0, 0, 0, 0.05);
+      }
     }
   }
 
   .right-menu {
     padding-right: 12px;
-    float: right;
     height: 100%;
     line-height: 50px;
     display: flex;

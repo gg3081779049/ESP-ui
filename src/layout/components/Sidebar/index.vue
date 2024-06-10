@@ -1,37 +1,26 @@
 <template>
-  <div class="sidebar-container" :style="{ width: `${isCollapse ? 54 : sidebarWidth}px` }">
+  <div class="sidebar-container" :style="{ width: `${collapse ? 54 : sidebarWidth}px` }">
     <div class="sidebar-logo-container">
       <img draggable="false" src="@/assets/logo/logo.png" alt="logo">
       <transition name="el-zoom-in-center">
-        <h1 v-show="!isCollapse">{{ title }}</h1>
+        <h1 v-show="!collapse">{{ title }}</h1>
       </transition>
     </div>
     <el-scrollbar>
-      <el-menu
-        :default-active="$route.path.substring(1)" 
-        :collapse="isCollapse"
-        :unique-opened="isUniqueOpened"
-        router>
-        <MenuItem v-for="route in menuRouterTree" :key="route" :item="route" />
-      </el-menu>
+      <Menu />
     </el-scrollbar>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-import MenuItem from "./MenuItem";
+import Menu from "./Menu";
 
 export default {
   name: "Sidebar",
-  components: { MenuItem },
+  components: { Menu },
   computed: {
-    ...mapGetters([
-      "menuRouterTree",
-      "isCollapse",
-      "isUniqueOpened",
-      "sidebarWidth",
-    ]),
+    ...mapGetters(["collapse", "sidebarWidth"]),
   },
   data() {
     return {
@@ -43,8 +32,6 @@ export default {
 
 <style lang="scss" scoped>
 .sidebar-container {
-  min-width: 180px;
-  max-width: 300px;
   height: 100%;
   background: var(--sidebar-background);
   box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
@@ -80,6 +67,21 @@ export default {
       vertical-align: middle;
       transition: 0.5s;
       cursor: pointer;
+    }
+  }
+
+  ::v-deep .el-menu {
+    --el-menu-bg-color: var(--sidebar-background);
+    --el-menu-hover-bg-color: var(--sidebar-background-hover);
+    --el-menu-text-color: var(--sidebar-text);
+    --el-menu-active-color: var(--sidebar-text-active);
+    --el-menu-border-color: var(--sidebar-background);
+    .el-menu {
+      --el-menu-bg-color: var(--sidebar-menu-background);
+      --el-menu-hover-bg-color: var(--sidebar-menu-background-hover);
+    }
+    li:not([aria-expanded]).is-active .menu-icon {
+      fill: var(--sidebar-text-active);
     }
   }
 }

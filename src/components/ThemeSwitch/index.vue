@@ -13,11 +13,7 @@ export default {
   created() {
     if (this.$store.state.settings.isActivateAnimation) {
       let style = document.createElement("style");
-      style.innerHTML = `
-        ::view-transition-new(root),
-        ::view-transition-old(root) {
-          animation: none;
-        }`;
+      style.innerHTML = `::view-transition-new(root),::view-transition-old(root) {animation: none}`;
       document.head.appendChild(style);
     }
   },

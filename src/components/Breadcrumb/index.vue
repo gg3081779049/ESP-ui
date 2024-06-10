@@ -26,7 +26,6 @@ export default {
   display: inline-block;
   font-size: 14px;
   line-height: 50px;
-  margin-left: 8px;
   svg {
     fill: var(--el-text-color-regular);
   }
