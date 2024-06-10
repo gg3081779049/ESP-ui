@@ -21,13 +21,14 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 import Hamburger from "@/components/Hamburger";
 import Breadcrumb from "@/components/Breadcrumb";
 import HeaderSearch from "@/components/HeaderSearch";
 import Screenfull from "@/components/Screenfull";
 import ThemeSwitch from "@/components/ThemeSwitch";
 import AvatarBox from "@/components/AvatarBox";
-import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "Navbar",
@@ -39,21 +40,8 @@ export default {
     ThemeSwitch,
     AvatarBox,
   },
-  computed: { ...mapGetters(["avatar", "showBreadcrumb"]) },
-  methods: {
-    ...mapMutations(["changeLogin", "changeShowSettings"]),
-    async logout() {
-      this.$confirm("确定要退出系统吗？", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          this.changeLogin(false);
-          this.$router.push("/login");
-        })
-        .catch(() => {});
-    },
+  computed: {
+    ...mapGetters(["showBreadcrumb", "avatar"]),
   },
 };
 </script>
@@ -70,7 +58,6 @@ export default {
   background: var(--navbar-background);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
   z-index: 1;
-
   .left-menu {
     display: flex;
     align-items: center;
@@ -83,7 +70,6 @@ export default {
       }
     }
   }
-
   .right-menu {
     padding-right: 12px;
     height: 100%;
@@ -91,7 +77,6 @@ export default {
     display: flex;
     align-items: center;
     gap: 16px;
-
     .divider {
       height: 22px;
       margin: 0 -6px;
@@ -99,7 +84,6 @@ export default {
       border-left-width: 1px;
       border-color: var(--navbar-icon-color);
     }
-
     .avatar-wrapper {
       cursor: pointer;
       display: flex;

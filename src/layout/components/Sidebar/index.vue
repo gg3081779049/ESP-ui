@@ -1,13 +1,13 @@
 <template>
   <div class="sidebar-container" :style="{ width: `${collapse ? 54 : sidebarWidth}px` }">
     <div class="sidebar-logo-container">
-      <img draggable="false" src="@/assets/logo/logo.png" alt="logo">
-      <transition name="el-zoom-in-center">
-        <h1 v-show="!collapse">{{ title }}</h1>
-      </transition>
+        <img draggable="false" src="@/assets/logo/logo.png" alt="logo">
+        <transition name="el-zoom-in-center">
+            <h1 v-show="!collapse">{{ title }}</h1>
+        </transition>
     </div>
     <el-scrollbar>
-      <Menu />
+        <Menu />
     </el-scrollbar>
   </div>
 </template>
@@ -19,9 +19,7 @@ import Menu from "./Menu";
 export default {
   name: "Sidebar",
   components: { Menu },
-  computed: {
-    ...mapGetters(["collapse", "sidebarWidth"]),
-  },
+  computed: { ...mapGetters(["collapse", "sidebarWidth"]) },
   data() {
     return {
       title: process.env.VUE_APP_TITLE.toUpperCase(),
@@ -48,14 +46,12 @@ export default {
     line-height: 50px;
     text-align: center;
     overflow: hidden;
-
     img {
       width: 32px;
       height: 24px;
       vertical-align: middle;
       cursor: pointer;
     }
-
     h1 {
       margin-left: 12px;
       display: inline-block;
@@ -69,7 +65,6 @@ export default {
       cursor: pointer;
     }
   }
-
   ::v-deep .el-menu {
     --el-menu-bg-color: var(--sidebar-background);
     --el-menu-hover-bg-color: var(--sidebar-background-hover);
