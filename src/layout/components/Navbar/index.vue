@@ -13,7 +13,7 @@
         <template #default="obj">
           <div class="avatar-wrapper">
             <img :src="obj.src" alt="avatar">
-            <span>&nbsp;管理员</span>
+            <span>管理员</span>
             <SvgIcon icon-class="arrow-right" />
           </div>
         </template>
@@ -94,6 +94,7 @@ export default {
       img {
         width: 32px;
         height: 32px;
+        margin-right: 5px;
         border-radius: 50%;
         box-sizing: border-box;
       }

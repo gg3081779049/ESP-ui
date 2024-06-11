@@ -3,7 +3,7 @@ export default {
     theme: 'light',
 
     // 布局
-    layout: 'vertical',
+    layout: 'vertical-mix',
 
     // 系统语言
     language: 'zh',
