@@ -1,5 +1,3 @@
-import settings from "@/settings"
-
 const getters = {
     // settings
     settings: state => state.settings,
