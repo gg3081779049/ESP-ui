@@ -60,7 +60,7 @@ export default {
     width: auto;
     box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
     -webkit-box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
-    z-index: 1;
+    z-index: 9;
   }
   .el-main {
     padding: 0;
@@ -69,7 +69,7 @@ export default {
         width: 100%;
         right: 0;
         top: 0;
-        z-index: 0;
+        z-index: 8;
       }
     }
   }

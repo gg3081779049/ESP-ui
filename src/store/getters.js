@@ -1,5 +1,8 @@
+import settings from "@/settings"
+
 const getters = {
     // settings
+    settings: state => state.settings,
     theme: state => state.settings.theme,
     layout: state => state.settings.layout,
     language: state => state.settings.language,

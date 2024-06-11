@@ -51,18 +51,11 @@
 
 <script>
 import settings from "@/settings.js";
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "Settings",
-  data() {
-    return {
-      settings: {},
-    };
-  },
-  created() {
-    this.settings = JSON.parse(JSON.stringify(this.$store.state.settings));
-  },
+  computed: { ...mapGetters(["settings"]) },
   methods: {
     saveSetting() {
       this.$model.loading("正在保存到本地，请稍候...");
