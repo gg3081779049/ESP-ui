@@ -5,6 +5,9 @@ export default {
     // 布局
     layout: 'vertical',
 
+    // 系统语言
+    language: 'zh',
+
     // 是否固定头部
     fixedHeader: true,
 

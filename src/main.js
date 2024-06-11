@@ -6,6 +6,7 @@ import 'element-plus/theme-chalk/dark/css-vars.css'
 import '@/assets/styles/index.scss'
 import router from '@/router'
 import store from '@/store'
+import i18n from '@/locales'
 import '@/permission'
 import '@/icons'
 // 全局组件
@@ -34,5 +35,6 @@ app.component(BackTop.name || 'BackTop', BackTop)
 app.use(router)
 app.use(store)
 app.use(ElementPlus)
+app.use(i18n)
 
 app.mount('#app')

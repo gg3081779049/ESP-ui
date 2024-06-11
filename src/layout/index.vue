@@ -10,7 +10,7 @@
             <Navbar />
             <TagsView v-if="showTagsView" />
           </div>
-          <AppMain :style="{ marginTop: `${fixedHeader ? showTagsView ? 84 : 50 : 0}px` }" />
+          <AppMain :style="{ marginTop: `${fixedHeader ? 50 + showTagsView * 34 : 0}px` }" />
         </el-scrollbar>
       </el-main>
     </el-container>
@@ -58,7 +58,8 @@ export default {
   background: var(--base-background);
   .el-aside {
     width: auto;
-    overflow: visible;
+    box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
+    -webkit-box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
     z-index: 9;
   }
   .el-main {

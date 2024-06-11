@@ -2,6 +2,7 @@ const getters = {
     // settings
     theme: state => state.settings.theme,
     layout: state => state.settings.layout,
+    language: state => state.settings.language,
     fixedHeader: state => state.settings.fixedHeader,
     showBreadcrumb: state => state.settings.showBreadcrumb,
     showBreadcrumbIcon: state => state.settings.showBreadcrumbIcon,
@@ -15,6 +16,7 @@ const getters = {
     menuRouterTree: state => state.menu.menuRouterTree,
     menuRouterList: state => state.menu.menuRouterList,
     // user
+    name: state => state.user.name,
     avatar: state => state.user.avatar,
     // tagsView
     visitedViews: state => state.tagsView.visitedViews,

@@ -1,7 +1,7 @@
 <template>
   <el-dropdown trigger="click" teleported>
-    <slot>
-      <img src="@/assets/images/avatar.png" class="user-avatar" alt="avatar">
+    <slot :src="avatar">
+      <img :src="avatar" class="user-avatar" alt="avatar">
     </slot>
     <template #dropdown>
       <el-dropdown-menu>
@@ -29,10 +29,11 @@
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "AvatarBox",
+  computed: { ...mapGetters(["name", "avatar"]) },
   methods: {
     ...mapMutations(["changeLogin", "changeShowSettings"]),
     async logout() {

@@ -1,13 +1,13 @@
 <template>
   <div class="sidebar-container" :style="{ width: `${collapse ? 54 : sidebarWidth}px` }">
     <div class="sidebar-logo-container">
-        <img draggable="false" src="@/assets/logo/logo.png" alt="logo">
-        <transition name="el-zoom-in-center">
-            <h1 v-show="!collapse">{{ title }}</h1>
-        </transition>
+      <img draggable="false" src="@/assets/logo/logo.png" alt="logo">
+      <transition name="el-zoom-in-center">
+        <h1 v-show="!collapse">{{ title }}</h1>
+      </transition>
     </div>
     <el-scrollbar>
-        <Menu />
+      <Menu />
     </el-scrollbar>
   </div>
 </template>
@@ -19,7 +19,9 @@ import Menu from "./Menu";
 export default {
   name: "Sidebar",
   components: { Menu },
-  computed: { ...mapGetters(["collapse", "sidebarWidth"]) },
+  computed: {
+    ...mapGetters(["collapse", "sidebarWidth", "sidebarResizeable"]),
+  },
   data() {
     return {
       title: process.env.VUE_APP_TITLE.toUpperCase(),
@@ -32,12 +34,10 @@ export default {
 .sidebar-container {
   height: 100%;
   background: var(--sidebar-background);
-  box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
   overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: width 0.28s;
-  -webkit-box-shadow: 2px 0 6px rgba(0, 21, 41, 0.35);
   -webkit-transition: width 0.28s;
   .sidebar-logo-container {
     width: 100%;

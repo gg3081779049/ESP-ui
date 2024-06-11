@@ -9,12 +9,14 @@
       <Screenfull />
       <ThemeSwitch />
       <el-divider direction="vertical" class="divider" />
-      <AvatarBox @visible-change="$refs['arrow-right'].$el.style.transform=`rotate(${$event * 90}deg)`">
-        <div class="avatar-wrapper">
-          <img src="@/assets/images/avatar.png" class="user-avatar" alt="avatar">
-          <span>&nbsp;管理员</span>
-          <SvgIcon icon-class="arrow-right" ref="arrow-right" />
-        </div>
+      <AvatarBox>
+        <template #default="obj">
+          <div class="avatar-wrapper">
+            <img :src="obj.src" alt="avatar">
+            <span>&nbsp;管理员</span>
+            <SvgIcon icon-class="arrow-right" />
+          </div>
+        </template>
       </AvatarBox>
     </div>
   </div>
@@ -66,7 +68,7 @@ export default {
       padding: 7px;
       cursor: pointer;
       &:hover {
-        background: rgba(0, 0, 0, 0.05);
+        background: rgba(#000, 0.05);
       }
     }
   }
@@ -89,7 +91,7 @@ export default {
       display: flex;
       align-items: center;
       color: var(--navbar-icon-color);
-      .user-avatar {
+      img {
         width: 32px;
         height: 32px;
         border-radius: 50%;
@@ -100,11 +102,19 @@ export default {
         transition: var(--el-transition-duration);
       }
       &:hover {
+        img {
+          filter: drop-shadow(var(--el-box-shadow-light));
+        }
         span {
           color: var(--el-color-primary);
         }
         svg {
           fill: var(--el-color-primary);
+        }
+      }
+      &[aria-expanded="true"] {
+        svg {
+          transform: rotate(90deg);
         }
       }
     }

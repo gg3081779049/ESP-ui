@@ -6,6 +6,7 @@ const settings = {
     state: {
         theme: storageSettings.theme === undefined ? defaultSettings.theme : storageSettings.theme,
         layout: storageSettings.layout === undefined ? defaultSettings.layout : storageSettings.layout,
+        language: storageSettings.language === undefined ? defaultSettings.language : storageSettings.language,
         fixedHeader: storageSettings.fixedHeader === undefined ? defaultSettings.fixedHeader : storageSettings.fixedHeader,
         showBreadcrumb: storageSettings.showBreadcrumb === undefined ? defaultSettings.showBreadcrumb : storageSettings.showBreadcrumb,
         showBreadcrumbIcon: storageSettings.showBreadcrumbIcon === undefined ? defaultSettings.showBreadcrumbIcon : storageSettings.showBreadcrumbIcon,
@@ -15,35 +16,18 @@ const settings = {
         sidebarWidth: storageSettings.sidebarWidth === undefined ? defaultSettings.sidebarWidth : storageSettings.sidebarWidth,
         uniqueOpened: storageSettings.uniqueOpened === undefined ? defaultSettings.uniqueOpened : storageSettings.uniqueOpened,
         watermark: storageSettings.watermark === undefined ? defaultSettings.watermark : storageSettings.watermark,
-        isActivateAnimation: true,
     },
     mutations: {
         changeTheme(state, theme) {
-            state.theme = theme
-            try {
-                document.startViewTransition(() => {
-                    document.documentElement.className = theme
-                }).ready.then(() => {
-                    // 切换动画
-                    if (state.isActivateAnimation) {
-                        let themeSwitch = document.querySelector('.theme-switch')
-                        let x = themeSwitch.getBoundingClientRect()['x'];
-                        let y = themeSwitch.getBoundingClientRect()['y'];
-                        let r = Math.hypot(Math.max(window.innerWidth - x, x), Math.max(window.innerHeight - y, y));
-                        let clipPath = [`circle(0% at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`]
-                        document.documentElement.animate({ clipPath }, {
-                            duration: 500,
-                            pseudoElement: '::view-transition-new(root)'
-                        })
-                    }
-                })
-            } catch (e) {
-                document.documentElement.className = theme
-            }
+            state.theme = document.documentElement.className = theme
         },
         changeLayout(state, layout) {
             state.layout = layout
         },
+        changeLanguage(state, language) {
+            state.language = language
+        },
+
         changeFixedHeader(state, fixedHeader) {
             state.fixedHeader = fixedHeader
         },
@@ -59,7 +43,6 @@ const settings = {
         changeShowTagsViewIcon(state, showTagsViewIcon) {
             state.showTagsViewIcon = showTagsViewIcon
         },
-
         changeDraggable(state, draggable) {
             state.draggable = draggable
         },
