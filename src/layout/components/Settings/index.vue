@@ -2,6 +2,15 @@
   <el-drawer class="drawer-container" size="360" title="系统设置" append-to-body>
     <hr>
     <el-scrollbar style="height:calc(100% - 52.8px)">
+      <el-divider>主题设置</el-divider>
+      <div style="text-align: center;">
+        <el-segmented v-model="theme" :options="['light', 'dark']">
+          <template #default="{ item }">
+            <SvgIcon :icon-class="`theme-switch-${item}`" />
+          </template>
+        </el-segmented>
+      </div>
+      <br>
       <el-divider>系统设置</el-divider>
       <div class="setting-item">
         <span>固定头部</span>
@@ -51,113 +60,14 @@
 
 <script>
 import settings from "@/settings.js";
-import { mapGetters, mapMutations } from "vuex";
+import { titleCase } from "@/utils";
 
 export default {
   name: "Settings",
-  computed: { 
-    ...mapGetters(["settings"]),
-    theme: {
-      get () {
-        return this.settings.theme;
-      },
-      set (val) {
-        this.changeTheme(val);
-      }
-    },
-    layout: {
-      get () {
-        return this.settings.layout;
-      },
-      set (val) {
-        this.changeLayout(val);
-      }
-    },
-    language: {
-      get () {
-        return this.settings.language;
-      },
-      set (val) {
-        this.changeLanguage(val);
-      }
-    },
-    fixedHeader: {
-      get () {
-        return this.settings.fixedHeader;
-      },
-      set (val) {
-        this.changeFixedHeader(val);
-      }
-    },
-    showBreadcrumb: {
-      get () {
-        return this.settings.showBreadcrumb;
-      },
-      set (val) {
-        this.changeShowBreadcrumb(val);
-      }
-    },
-    showBreadcrumbIcon: {
-      get () {
-        return this.settings.showBreadcrumbIcon;
-      },
-      set (val) {
-        this.changeShowBreadcrumbIcon(val);
-      }
-    },
-    showTagsView: {
-      get () {
-        return this.settings.showTagsView;
-      },
-      set (val) {
-        this.changeShowTagsView(val);
-      }
-    },
-    showTagsViewIcon: {
-      get () {
-        return this.settings.showTagsViewIcon;
-      },
-      set (val) {
-        this.changeShowTagsViewIcon(val);
-      }
-    },
-    draggable: {
-      get () {
-        return this.settings.draggable;
-      },
-      set (val) {
-        this.changeDraggable(val);
-      }
-    },
-    sidebarWidth: {
-      get () {
-        return this.settings.sidebarWidth;
-      },
-      set (val) {
-        this.changeSidebarWidth(val);
-      }
-    },
-    uniqueOpened: {
-      get () {
-        return this.settings.uniqueOpened;
-      },
-      set (val) {
-        this.changeUniqueOpened(val);
-      }
-    },
-    watermark: {
-      get () {
-        return this.settings.watermark;
-      },
-      set (val) {
-        this.changeWatermark(val);
-      }
-    },
-   },
   methods: {
     saveSetting() {
       this.$model.loading("正在保存到本地，请稍候...");
-      localStorage.setItem("system-settings", JSON.stringify(this.settings));
+      localStorage.setItem("system-settings", JSON.stringify(this.$store.state.settings));
       setTimeout(() => this.$model.closeLoading(), 900);
     },
     resetSetting() {
@@ -166,20 +76,19 @@ export default {
       for (let key in settings) this[key] = settings[key];
       setTimeout(() => this.$model.closeLoading(), 900);
     },
-    ...mapMutations([
-      "changeTheme",
-      "changeLayout",
-      "changeLanguage",
-      "changeFixedHeader",
-      "changeShowBreadcrumb",
-      "changeShowBreadcrumbIcon",
-      "changeShowTagsView",
-      "changeShowTagsViewIcon",
-      "changeDraggable",
-      "changeSidebarWidth",
-      "changeUniqueOpened",
-      "changeWatermark",
-    ]),
+  },
+  computed: {
+    ...Object.keys(settings).reduce((acc, key) => {
+      acc[key] = {
+        get() { 
+          return this.$store.state.settings[key]
+        },
+        set(val) { 
+          this.$store.commit(`change${titleCase(key)}`, val)
+        }
+      };
+      return acc
+    }, {})
   },
 };
 </script>
@@ -201,6 +110,16 @@ export default {
     .el-divider--horizontal {
       margin: 16px 0;
     }
+    .el-segmented {
+      padding: 5px;
+      .is-selected svg {
+        fill: var(--el-segmented-item-selected-color);
+      }
+      svg {
+        width: 40px;
+        fill: var(--el-segmented-color)
+      }
+    }
     .setting-item {
       height: 40px;
       display: flex;
@@ -208,7 +127,6 @@ export default {
       align-items: center;
       font-size: 14px;
       color: var(--el-text-color-primary);
-
       .el-input-number {
         width: 72px;
         ::v-deep {
