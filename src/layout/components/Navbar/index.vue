@@ -92,8 +92,8 @@ export default {
       align-items: center;
       color: var(--navbar-icon-color);
       img {
-        width: 32px;
-        height: 32px;
+        width: 30px;
+        height: 30px;
         margin-right: 5px;
         border-radius: 50%;
         box-sizing: border-box;

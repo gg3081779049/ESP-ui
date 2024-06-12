@@ -99,14 +99,19 @@ export default {
     vertical-align: middle;
     --el-border-color: var(--el-color-info-light-3);
 
-    ::v-deep input {
-      border-radius: 0;
-      border: 0;
-      padding-left: 0;
-      padding-right: 0;
-      box-shadow: none !important;
-      border-bottom: 1px solid #d9d9d9;
-      vertical-align: middle;
+    ::v-deep {
+      input {
+        border-radius: 0;
+        border: 0;
+        padding-left: 0;
+        padding-right: 0;
+        box-shadow: none !important;
+        border-bottom: 1px solid #d9d9d9;
+        vertical-align: middle;
+      }
+      .el-select__wrapper {
+        background: transparent;
+      }
     }
   }
 

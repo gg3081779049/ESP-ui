@@ -1,5 +1,5 @@
 <template>
-  <SvgIcon iconClass="hamburger" className="hamburger" :style="{ transform: collapse ? '' : 'rotate(180deg)' }" @click="toggleClick" />
+  <SvgIcon iconClass="hamburger" className="hamburger" :style="{ transform: collapse ? '' : 'rotate(180deg)' }" @click="changeCollapse(!collapse)" />
 </template>
 
 <script>
@@ -10,9 +10,6 @@ export default {
   computed: { ...mapGetters(["collapse"]) },
   methods: {
     ...mapMutations(["changeCollapse"]),
-    toggleClick() {
-      this.changeCollapse(!this.collapse);
-    },
   },
 };
 </script>

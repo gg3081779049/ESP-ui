@@ -9,6 +9,9 @@
     <el-scrollbar>
       <Menu />
     </el-scrollbar>
+    <div class="sidebar-footer-container" v-if="showFooter">
+      <Hamburger />
+    </div>
   </div>
 </template>
 
@@ -16,19 +19,24 @@
 import { mapGetters } from "vuex";
 
 import Menu from "./Menu";
+import Hamburger from "@/components/Hamburger";
 
 export default {
   name: "Sidebar",
-  components: { Menu },
+  components: { Menu, Hamburger },
   props: {
     showLogo: {
       type: Boolean,
       default: true,
     },
+    showFooter: {
+      type: Boolean,
+      default: true,
+    }
   },
   computed: {
     ...mapGetters(["collapse", "sidebarWidth", "sidebarResizeable", "title"]),
-  }
+  },
 };
 </script>
 
@@ -39,6 +47,7 @@ export default {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  position: relative;
   transition: width 0.28s;
   -webkit-transition: width 0.28s;
   .sidebar-logo-container {
@@ -79,6 +88,17 @@ export default {
     }
     li:not([aria-expanded]).is-active .menu-icon {
       fill: var(--sidebar-text-active);
+    }
+  }
+  .sidebar-footer-container {
+    height: 50px;
+    padding: 0 16px;
+    border-top: 1px solid var(--logo-background);
+    display: flex;
+    align-items: center;
+    svg {
+      fill: var(--sidebar-text);
+      cursor: pointer;
     }
   }
 }
