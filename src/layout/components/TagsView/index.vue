@@ -1,20 +1,10 @@
 <template>
 <div class="tags-view-container">
   <scroll-pane ref="scrollPane" class="tags-view-wrapper" @scroll="closeMenu">
-    <router-link
-      ref="tag"
-      class="tags-view-item"
-      :class="{ 'active': tag.path === $route.path }"
-      v-for="tag in visitedViews"
-      :draggable="$store.state.settings.draggable"
-      :key="tag"
-      :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
+    <Tag ref="tag" v-for="tag in visitedViews" :key="tag" :tag="tag" 
+      @closeSelectedTag="closeSelectedTag" 
       @click.middle="closeSelectedTag(tag)"
-      @contextmenu.prevent="openMenu($event, tag)">
-      <SvgIcon :icon-class="tag.meta.icon.at(-1)" v-if="showTagsViewIcon && tag.meta.icon" />
-      {{ tag.meta.title.at(-1) }}
-      <SvgIcon class="close-icon" icon-class="close" v-if="tag.path !== '/home'" @click.prevent.stop="closeSelectedTag(tag)" />
-    </router-link>
+      @contextmenu.prevent="openMenu($event, tag)" />
   </scroll-pane>
   <ul class="contextmenu" v-show="visible" :style="{ left: left + 'px', top: top + 'px' }">
     <li @click="closeSelectedTag(selectedTag)" v-if="!isDefaultView"><SvgIcon icon-class="close" /> 关闭当前</li>
@@ -27,13 +17,15 @@
 </template>
 
 <script>
-import ScrollPane from "./scrollPane";
 import { useDraggable } from "vue-draggable-plus";
 import { mapGetters } from "vuex";
 
+import ScrollPane from "./scrollPane";
+import Tag from "./Tag";
+
 export default {
   name: "TagsView",
-  components: { ScrollPane },
+  components: { ScrollPane, Tag },
   data() {
     return {
       visible: false,
@@ -43,7 +35,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["visitedViews", "showTagsViewIcon", "draggable"]),
+    ...mapGetters(["visitedViews", "draggable"]),
     defaultViewIndex() {
       return this.visitedViews.findIndex(
         (v) => v.name === this.$store.state.tagsView.defaultViewName
@@ -227,54 +219,9 @@ export default {
   height: 34px;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
   position: relative;
-
   .tags-view-wrapper {
-    .tags-view-item {
-      height: 25px;
-      margin-left: 5px;
-      margin-top: 4px;
-      padding: 0 8px;
-      border: 1px solid var(--el-color-primary-light-3);
-      background: var(--el-color-primary-light-9);
-      display: inline-block;
-      color: var(--el-color-primary);
-      font-size: 12px;
-      line-height: 26px;
-      text-decoration: none;
-      position: relative;
-      cursor: pointer;
-
-      svg {
-        width: 12px;
-        height: 12px;
-        fill: var(--el-color-primary);
-        &.close-icon {
-          border-radius: 50%;
-          transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-          &:hover {
-            background: hsl(120, 19%, 75%);
-            fill: var(--el-color-primary-light-8);
-            transform: scale(1.1);
-          }
-        }
-      }
-
-      &:first-of-type {
-        margin-left: 15px;
-      }
-      &:last-of-type {
-        margin-right: 15px;
-      }
-    }
     .ghost {
       opacity: 0.2;
-    }
-    .active {
-      background: var(--el-color-primary);
-      color: #fff;
-      svg {
-        fill: #fff;
-      }
     }
   }
 
