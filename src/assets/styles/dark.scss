@@ -8,8 +8,9 @@ html.dark {
     --sidebar-background-hover: hsl(150, 29%, 24%);
     --sidebar-menu-background: hsl(150, 33%, 18%);
     --sidebar-menu-background-hover: hsl(150, 80%, 10%);
+    --sidebar-background-active: transparent;
     --sidebar-text: hsl(150, 25%, 80%);
-    --sidebar-text-active: var(--el-color-primary);
+    --sidebar-text-active: #67c23a;
     /* navbar */
     --navbar-background: hsl(147, 10%, 13%);
     --navbar-icon-color: rgb(204, 204, 204);
