@@ -22,6 +22,7 @@ const getters = {
     // tagsView
     visitedViews: state => state.tagsView.visitedViews,
     // app
+    title: state => state.app.title,
     collapse: state => state.app.collapse,
     showSettings: state => state.app.showSettings,
 }

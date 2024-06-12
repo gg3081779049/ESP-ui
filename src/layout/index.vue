@@ -32,7 +32,13 @@ export default {
   name: "Layout",
   components: { WaterMark, Settings, Sidebar, Navbar, TagsView, AppMain },
   computed: {
-    ...mapGetters(["watermark", "theme", "fixedHeader", "showTagsView"]),
+    ...mapGetters([
+      "theme",
+      "layout",
+      "fixedHeader",
+      "showTagsView",
+      "watermark",
+    ]),
     showSettings: {
       get() {
         return this.$store.state.app.showSettings;

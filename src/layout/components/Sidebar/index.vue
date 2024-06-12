@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar-container" :style="{ width: `${collapse ? 54 : sidebarWidth}px` }">
-    <div class="sidebar-logo-container">
+    <div class="sidebar-logo-container" v-if="showLogo">
       <img draggable="false" src="@/assets/logo/logo.png" alt="logo">
       <transition name="el-zoom-in-center">
         <h1 v-show="!collapse">{{ title }}</h1>
@@ -14,19 +14,21 @@
 
 <script>
 import { mapGetters } from "vuex";
+
 import Menu from "./Menu";
 
 export default {
   name: "Sidebar",
   components: { Menu },
+  props: {
+    showLogo: {
+      type: Boolean,
+      default: true,
+    },
+  },
   computed: {
-    ...mapGetters(["collapse", "sidebarWidth", "sidebarResizeable"]),
-  },
-  data() {
-    return {
-      title: process.env.VUE_APP_TITLE.toUpperCase(),
-    };
-  },
+    ...mapGetters(["collapse", "sidebarWidth", "sidebarResizeable", "title"]),
+  }
 };
 </script>
 

@@ -5,35 +5,35 @@
       <el-divider>系统设置</el-divider>
       <div class="setting-item">
         <span>固定头部</span>
-        <el-switch v-model="settings.fixedHeader" />
+        <el-switch v-model="fixedHeader" />
       </div>
       <div class="setting-item">
         <span>显示面包屑</span>
-        <el-switch v-model="settings.showBreadcrumb" />
+        <el-switch v-model="showBreadcrumb" />
       </div>
       <div class="setting-item">
         <span>显示面包屑图标</span>
-        <el-switch v-model="settings.showBreadcrumbIcon" />
+        <el-switch v-model="showBreadcrumbIcon" />
       </div>
       <div class="setting-item">
         <span>显示标签页</span>
-        <el-switch v-model="settings.showTagsView" />
+        <el-switch v-model="showTagsView" />
       </div>
       <div class="setting-item">
         <span>显示标签页图标</span>
-        <el-switch v-model="settings.showTagsViewIcon" />
+        <el-switch v-model="showTagsViewIcon" />
       </div>
       <div class="setting-item">
         <span>开启标签拖拽</span>
-        <el-switch v-model="settings.draggable" />
+        <el-switch v-model="draggable" />
       </div>
       <div class="setting-item">
         <span>只保持一个子菜单展开</span>
-        <el-switch v-model="settings.uniqueOpened" />
+        <el-switch v-model="uniqueOpened" />
       </div>
       <div class="setting-item">
         <span>开启水印</span>
-        <el-switch v-model="settings.watermark" />
+        <el-switch v-model="watermark" />
       </div>
     </el-scrollbar>
     <div class="footer">
@@ -55,7 +55,105 @@ import { mapGetters, mapMutations } from "vuex";
 
 export default {
   name: "Settings",
-  computed: { ...mapGetters(["settings"]) },
+  computed: { 
+    ...mapGetters(["settings"]),
+    theme: {
+      get () {
+        return this.settings.theme;
+      },
+      set (val) {
+        this.changeTheme(val);
+      }
+    },
+    layout: {
+      get () {
+        return this.settings.layout;
+      },
+      set (val) {
+        this.changeLayout(val);
+      }
+    },
+    language: {
+      get () {
+        return this.settings.language;
+      },
+      set (val) {
+        this.changeLanguage(val);
+      }
+    },
+    fixedHeader: {
+      get () {
+        return this.settings.fixedHeader;
+      },
+      set (val) {
+        this.changeFixedHeader(val);
+      }
+    },
+    showBreadcrumb: {
+      get () {
+        return this.settings.showBreadcrumb;
+      },
+      set (val) {
+        this.changeShowBreadcrumb(val);
+      }
+    },
+    showBreadcrumbIcon: {
+      get () {
+        return this.settings.showBreadcrumbIcon;
+      },
+      set (val) {
+        this.changeShowBreadcrumbIcon(val);
+      }
+    },
+    showTagsView: {
+      get () {
+        return this.settings.showTagsView;
+      },
+      set (val) {
+        this.changeShowTagsView(val);
+      }
+    },
+    showTagsViewIcon: {
+      get () {
+        return this.settings.showTagsViewIcon;
+      },
+      set (val) {
+        this.changeShowTagsViewIcon(val);
+      }
+    },
+    draggable: {
+      get () {
+        return this.settings.draggable;
+      },
+      set (val) {
+        this.changeDraggable(val);
+      }
+    },
+    sidebarWidth: {
+      get () {
+        return this.settings.sidebarWidth;
+      },
+      set (val) {
+        this.changeSidebarWidth(val);
+      }
+    },
+    uniqueOpened: {
+      get () {
+        return this.settings.uniqueOpened;
+      },
+      set (val) {
+        this.changeUniqueOpened(val);
+      }
+    },
+    watermark: {
+      get () {
+        return this.settings.watermark;
+      },
+      set (val) {
+        this.changeWatermark(val);
+      }
+    },
+   },
   methods: {
     saveSetting() {
       this.$model.loading("正在保存到本地，请稍候...");
@@ -65,11 +163,13 @@ export default {
     resetSetting() {
       this.$model.loading("正在清除设置，请稍候...");
       localStorage.removeItem("system-settings");
-      for (let key in settings) this.settings[key] = settings[key];
+      for (let key in settings) this[key] = settings[key];
       setTimeout(() => this.$model.closeLoading(), 900);
     },
     ...mapMutations([
+      "changeTheme",
       "changeLayout",
+      "changeLanguage",
       "changeFixedHeader",
       "changeShowBreadcrumb",
       "changeShowBreadcrumbIcon",
@@ -80,38 +180,6 @@ export default {
       "changeUniqueOpened",
       "changeWatermark",
     ]),
-  },
-  watch: {
-    "settings.layout"(layout) {
-      this.changeLayout(layout);
-    },
-    "settings.fixedHeader"(fixedHeader) {
-      this.changeFixedHeader(fixedHeader);
-    },
-    "settings.showBreadcrumb"(showBreadcrumb) {
-      this.changeShowBreadcrumb(showBreadcrumb);
-    },
-    "settings.showBreadcrumbIcon"(showBreadcrumbIcon) {
-      this.changeShowBreadcrumbIcon(showBreadcrumbIcon);
-    },
-    "settings.showTagsView"(showTagsView) {
-      this.changeShowTagsView(showTagsView);
-    },
-    "settings.showTagsViewIcon"(showTagsViewIcon) {
-      this.changeShowTagsViewIcon(showTagsViewIcon);
-    },
-    "settings.draggable"(draggable) {
-      this.changeDraggable(draggable);
-    },
-    "settings.sidebarWidth"(sidebarWidth) {
-      this.changeSidebarWidth(sidebarWidth);
-    },
-    "settings.uniqueOpened"(uniqueOpened) {
-      this.changeUniqueOpened(uniqueOpened);
-    },
-    "settings.watermark"(watermark) {
-      this.changeWatermark(watermark);
-    },
   },
 };
 </script>

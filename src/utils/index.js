@@ -45,3 +45,8 @@ export function resetForm(refName) {
         this.$refs[refName].resetFields();
     }
 }
+
+// 首字母大小
+export function titleCase(str) {
+    return str.replace(/( |^)[a-z]/g, L => L.toUpperCase())
+}
