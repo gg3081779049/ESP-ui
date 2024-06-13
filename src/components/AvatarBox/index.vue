@@ -46,17 +46,17 @@ export default {
           this.changeLogin(false);
           this.$router.push("/login");
         })
-        .catch(() => {});
+        .catch(() => { });
     },
   },
 };
 </script>
 
 <style scoped>
-.user-avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  box-sizing: border-box;
-}
+  .user-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    box-sizing: border-box;
+  }
 </style>
