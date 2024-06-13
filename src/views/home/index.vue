@@ -1,7 +1,7 @@
 <template>
-  <div class="app-container">
-    <el-empty description="empty" />
-  </div>
+<div class="app-container">
+  <el-empty description="empty" />
+</div>
 </template>
 
 <script>
@@ -10,4 +10,5 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+</style>

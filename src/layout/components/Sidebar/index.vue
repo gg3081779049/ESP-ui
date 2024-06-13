@@ -86,11 +86,8 @@ export default {
       --el-menu-bg-color: var(--sidebar-menu-background);
       --el-menu-hover-bg-color: var(--sidebar-menu-background-hover);
     }
-    li:not([aria-expanded]).is-active {
-      background: var(--sidebar-background-active);
-      svg {
-        fill: var(--sidebar-text-active);
-      }
+    li:not([aria-expanded]).is-active .menu-icon {
+      fill: var(--sidebar-text-active);
     }
   }
   .sidebar-footer-container {

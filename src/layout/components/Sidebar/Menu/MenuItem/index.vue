@@ -29,10 +29,10 @@ export default {
 </script>
 
 <style scoped>
-  .menu-icon {
-    width: 1em;
-    height: 1em;
-    margin-right: 15px;
-    fill: var(--sidebar-text);
-  }
+.menu-icon {
+  width: 1em;
+  height: 1em;
+  margin-right: 15px;
+  fill: var(--sidebar-text);
+}
 </style>
