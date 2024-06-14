@@ -64,11 +64,11 @@ export default {
     display: flex;
     align-items: center;
     .hamburger-container {
-      margin: 0 8px;
-      padding: 7px;
+      margin: 0 15px;
       cursor: pointer;
       &:hover {
-        background: rgba(#000, 0.05);
+        background: var(--navbar-icon-background-hover);
+        box-shadow: 0 0 0 6px var(--navbar-icon-background-hover);
       }
     }
   }
@@ -104,7 +104,7 @@ export default {
       }
       &:hover {
         img {
-          filter: drop-shadow(var(--el-box-shadow-light));
+          box-shadow: 0 0 0 3px var(--navbar-icon-background-hover);
         }
         span {
           color: var(--el-color-primary);

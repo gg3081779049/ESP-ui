@@ -225,6 +225,7 @@ export default {
 .tags-view-container {
   width: 100%;
   height: 34px;
+  background: var(--tagsView-background);
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
   position: relative;
 
@@ -235,7 +236,7 @@ export default {
       margin-top: 4px;
       padding: 0 8px;
       border: 1px solid var(--el-color-primary-light-3);
-      background: var(--el-color-primary-light-9);
+      background: var(--tag--background);
       display: inline-block;
       color: var(--el-color-primary);
       font-size: 12px;
@@ -270,7 +271,7 @@ export default {
       opacity: 0.2;
     }
     .active {
-      background: var(--el-color-primary);
+      background: var(--tag--background-active);
       color: #fff;
       svg {
         fill: #fff;
@@ -305,14 +306,5 @@ export default {
       }
     }
   }
-}
-
-.tags-view-container::before {
-  content: "";
-  width: 100%;
-  height: 34px;
-  background: var(--navbar-background);
-  position: absolute;
-  opacity: 0.7;
 }
 </style>

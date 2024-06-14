@@ -1,7 +1,7 @@
 //黑夜模式
 html.dark {
-    --base-background: rgb(20, 20, 20);
-    --logo-title-color: rgb(238, 238, 238);
+    --base-background: hsl(0, 0%, 8%);
+    --logo-title-color: hsl(0, 0%, 93%);
     --logo-background: hsl(150, 16%, 21%);
     /* sidebar */
     --sidebar-background: hsl(150, 32%, 26%);
@@ -10,16 +10,21 @@ html.dark {
     --sidebar-menu-background-hover: hsl(150, 80%, 10%);
     --sidebar-background-active: transparent;
     --sidebar-text: hsl(150, 25%, 80%);
-    --sidebar-text-active: #64bc38;
+    --sidebar-text-active: hsl(100, 54%, 48%);
     /* navbar */
-    --navbar-background: hsl(147, 10%, 13%);
-    --navbar-icon-color: rgb(204, 204, 204);
+    --navbar-background: hsl(144, 7%, 13%);
+    --navbar-icon-color: hsl(0, 0%, 80%);
+    --navbar-icon-background-hover: hsla(0, 0%, 100%, 0.06);
+    /* tagsView */
+    --tagsView-background: hsla(144, 7%, 13%, 0.7);
+    --tag--background: hsl(102, 21%, 12%);
+    --tag--background-active: hsl(100, 54%, 44%);
     /* element */
-    --el-color-primary: #64bc38;
-    --el-color-primary-light-3: #4f8e2f;
-    --el-color-primary-light-5: #3e6b27;
-    --el-color-primary-light-7: #2d481f;
-    --el-color-primary-light-8: #25371c;
-    --el-color-primary-light-9: #1c2518;
-    --el-color-primary-dark-2: #85ce61;
+    --el-color-primary: hsl(100, 54%, 48%);
+    --el-color-primary-light-3: hsl(100, 50%, 37%);
+    --el-color-primary-light-5: hsl(100, 47%, 29%);
+    --el-color-primary-light-7: hsl(100, 40%, 20%);
+    --el-color-primary-light-8: hsl(100, 33%, 16%);
+    --el-color-primary-light-9: hsl(100, 21%, 12%);
+    --el-color-primary-dark-2: hsl(100, 53%, 59%);
 }

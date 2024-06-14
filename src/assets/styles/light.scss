@@ -1,7 +1,7 @@
 //白天模式
 html.light {
-    --base-background: rgb(244, 244, 244);
-    --logo-title-color: rgb(238, 238, 238);
+    --base-background: hsl(0, 0%, 96%);
+    --logo-title-color: hsl(0, 0%, 93%);
     --logo-background: hsl(150, 16%, 21%);
     /* sidebar */
     --sidebar-background: hsl(150, 32%, 26%);
@@ -10,16 +10,21 @@ html.light {
     --sidebar-menu-background-hover: hsl(150, 80%, 10%);
     --sidebar-background-active: transparent;
     --sidebar-text: hsl(150, 25%, 80%);
-    --sidebar-text-active: #67c23a;
+    --sidebar-text-active: hsl(100, 54%, 49%);
     /* navbar */
-    --navbar-background: rgb(255, 255, 255);
-    --navbar-icon-color: rgb(90, 102, 94);
+    --navbar-background: hsl(0, 0%, 100%);
+    --navbar-icon-color: hsl(140, 6%, 38%);
+    --navbar-icon-background-hover: hsla(0, 0%, 0%, 0.06);
+    /* tagsView */
+    --tagsView-background: hsla(0, 0%, 100%, 0.7);
+    --tag--background: #f0f9eb;
+    --tag--background-active: hsl(100, 54%, 49%);
     /* element */
-    --el-color-primary: #67c23a;
-    --el-color-primary-light-3: #95d475;
-    --el-color-primary-light-5: #b3e19d;
-    --el-color-primary-light-7: #d1edc4;
-    --el-color-primary-light-8: #e1f3d8;
-    --el-color-primary-light-9: #f0f9eb;
-    --el-color-primary-dark-2: #529b2e;
+    --el-color-primary: hsl(100, 54%, 49%);
+    --el-color-primary-light-3: hsl(100, 52%, 65%);
+    --el-color-primary-light-5: hsl(100, 53%, 75%);
+    --el-color-primary-light-7: hsl(100, 53%, 85%);
+    --el-color-primary-light-8: hsl(100, 53%, 90%);
+    --el-color-primary-light-9: hsl(100, 54%, 95%);
+    --el-color-primary-dark-2: hsl(100, 54%, 39%);
 }

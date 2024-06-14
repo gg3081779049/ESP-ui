@@ -2,12 +2,12 @@
   <div class="top-right-btn">
     <el-tooltip
       :content="showSearch ? '隐藏搜索' : '显示搜索'" 
-      placement="top"
+      placement="top" 
       effect="light" 
       hide-after="0">
       <el-button circle @click="toggleSearch" style="position:relative">
         <SvgIcon style="margin:0" icon-class="search"/>
-        <svg class="line" viewBox="0 0 1024 1024" v-if="!showSearch">
+        <svg style="position:absolute;left:50%;top:50%;transform:translate(-50%,-50%)scale(1.2)" viewBox="0 0 1024 1024" v-if="!showSearch">
           <polyline points="0,940 940,0 985,45 45,985 0,940" />
         </svg>
       </el-button>
@@ -51,11 +51,5 @@ export default {
 <style lang="scss" scoped>
 .top-right-btn {
   float: right;
-  .line {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%) scale(1.2);
-  }
 }
 </style>

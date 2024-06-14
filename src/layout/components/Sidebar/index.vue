@@ -102,6 +102,10 @@ export default {
     svg {
       fill: var(--sidebar-text);
       cursor: pointer;
+      &:hover {
+        background: var(--navbar-icon-background-hover);
+        box-shadow: 0 0 0 6px var(--navbar-icon-background-hover);
+      }
     }
   }
 }
