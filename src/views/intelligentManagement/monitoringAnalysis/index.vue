@@ -11,10 +11,7 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button
-            type="primary"
-            @click="handleQuery"
-            style="background:var(--el-color-primary-light-3);border-color:var(--el-color-primary-light-3)">
+          <el-button type="primary" @click="handleQuery">
             <SvgIcon icon-class="search" />
             <span>搜索</span>
           </el-button>
@@ -305,9 +302,6 @@ export default {
   display: flex;
   justify-content: end;
   position: relative;
-  ::v-deep .el-pager li.is-active {
-    background-color: var(--el-color-primary-light-3);
-  }
   .backtop-btn {
     position: relative;
     left: 0;
