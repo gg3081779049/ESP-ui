@@ -5,8 +5,8 @@
       ref="tag"
       class="tags-view-item"
       :class="{ 'active': tag.path === $route.path }"
+      :draggable="draggable"
       v-for="tag in visitedViews"
-      :draggable="$store.state.settings.draggable"
       :key="tag"
       :to="{ path: tag.path, query: tag.query, fullPath: tag.fullPath }"
       @click.middle="closeSelectedTag(tag)"
@@ -40,6 +40,7 @@ export default {
       left: 0,
       top: 0,
       selectedTag: {},
+      dragger: null
     };
   },
   computed: {
@@ -75,15 +76,12 @@ export default {
   },
   mounted() {
     this.addTags();
-    useDraggable(
-      this.$refs.scrollPane.$el.querySelector(".el-scrollbar__view"),
-      {
+    this.dragger = useDraggable(this.$refs.scrollPane.$el.querySelector(".el-scrollbar__view"), {
         animation: 150,
         ghostClass: "ghost",
-        disabled: !this.draggable,
         onUpdate: this.handleUpdate,
-      }
-    ).start();
+      });
+    this.draggable ? this.dragger.start() : this.dragger.pause()
   },
   methods: {
     openMenu(e, tag) {
@@ -217,6 +215,13 @@ export default {
         document.body.removeEventListener("click", this.closeMenu);
       }
     },
+    draggable: {
+      handler(draggable) {
+        if (this.dragger) {
+          draggable ? this.dragger.start() : this.dragger.pause()
+        }
+      },
+    }
   },
 };
 </script>
