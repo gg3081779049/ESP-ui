@@ -4,7 +4,7 @@
     <router-link
       ref="tag"
       class="tags-view-item"
-      :class="{ 'active': tag.path === $route.path }"
+      :class="{ 'is-active': tag.path === $route.path }"
       :draggable="draggable"
       v-for="tag in visitedViews"
       :key="tag"
@@ -40,7 +40,7 @@ export default {
       left: 0,
       top: 0,
       selectedTag: {},
-      dragger: null,
+      dragger: null
     };
   },
   computed: {
@@ -271,16 +271,16 @@ export default {
       &:last-of-type {
         margin-right: 15px;
       }
+      &.is-active {
+        background: var(--tag--background-active);
+        color: #fff;
+        svg {
+          fill: #fff;
+        }
+      }
     }
     .ghost {
       opacity: 0.2;
-    }
-    .active {
-      background: var(--tag--background-active);
-      color: #fff;
-      svg {
-        fill: #fff;
-      }
     }
   }
 

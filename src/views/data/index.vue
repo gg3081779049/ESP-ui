@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-
+    <el-empty description="empty" />
   </div>
 </template>
 
@@ -9,4 +9,6 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+
+</style>

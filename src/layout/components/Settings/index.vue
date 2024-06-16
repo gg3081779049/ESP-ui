@@ -116,7 +116,7 @@ export default {
         fill: var(--el-segmented-item-selected-color);
       }
       svg {
-        width: 20px;
+        width: 40px;
         fill: var(--el-segmented-color)
       }
     }
