@@ -1,8 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+// UI组件库
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import 'element-plus/theme-chalk/dark/css-vars.css'
+import DataVVue3 from '@kjgl77/datav-vue3'
+
 import '@/assets/styles/index.scss'
 import router from '@/router'
 import store from '@/store'
@@ -35,6 +38,7 @@ app.component(BackTop.name || 'BackTop', BackTop)
 app.use(router)
 app.use(store)
 app.use(ElementPlus)
+app.use(DataVVue3)
 app.use(i18n)
 
 app.mount('#app')

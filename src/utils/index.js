@@ -50,3 +50,12 @@ export function resetForm(refName) {
 export function titleCase(str) {
     return str.replace(/( |^)[a-z]/g, L => L.toUpperCase())
 }
+
+/**
+ * 验证是否为外部链接
+ * @param {string} path
+ * @returns {Boolean}
+ */
+export function isExternal(path) {
+    return /^(https?:|mailto:|tel:)/.test(path)
+}

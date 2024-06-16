@@ -1,10 +1,12 @@
 <template>
   <div class="sidebar-container" :style="{ width: `${collapse ? 54 : sidebarWidth}px` }">
     <div class="sidebar-logo-container" v-if="showLogo">
-      <img draggable="false" src="@/assets/logo/logo.png" alt="logo">
-      <transition name="el-zoom-in-center">
-        <h1 v-show="!collapse">{{ title }}</h1>
-      </transition>
+      <router-link to="/">
+        <img draggable="false" src="@/assets/logo/logo.png" alt="logo">
+        <transition name="el-zoom-in-center">
+          <h1 v-show="!collapse">{{ title }}</h1>
+        </transition>
+      </router-link>
     </div>
     <el-scrollbar>
       <Menu />
