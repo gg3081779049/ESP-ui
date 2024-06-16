@@ -40,7 +40,7 @@ export default {
       left: 0,
       top: 0,
       selectedTag: {},
-      dragger: null
+      dragger: null,
     };
   },
   computed: {
