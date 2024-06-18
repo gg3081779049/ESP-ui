@@ -8,8 +8,8 @@ export function getMenu() {
                 icon: 'home',
                 name: '首页',
             }, {
-                path: 'data',
-                icon: 'data',
+                path: 'dataVisual',
+                icon: 'dataVisual',
                 name: '数据可视化',
             }, {
                 path: 'environmentalMonitoring',
