@@ -1,5 +1,5 @@
 <template>
-  <el-watermark :content="show ? '节能先锋' : null" :font="{ color: theme === 'light' ? '#00000026' : '#ffffff26' }">
+  <el-watermark :content="show ? '节能减排' : null" :font="{ color: theme === 'light' ? '#00000026' : '#ffffff26' }">
     <slot />
   </el-watermark>
 </template>

@@ -37,12 +37,23 @@
         <el-switch v-model="draggable" />
       </div>
       <div class="setting-item">
+        <span>侧边栏宽度</span>
+        <el-input-number v-model="sidebarWidth" :min="180" :max="360" controls-position="right" />
+      </div>
+      <div class="setting-item">
         <span>只保持一个子菜单展开</span>
         <el-switch v-model="uniqueOpened" />
       </div>
       <div class="setting-item">
         <span>开启水印</span>
         <el-switch v-model="watermark" />
+      </div>
+      <div class="setting-item">
+        <span>系统语言</span>
+        <el-select v-model="language" style="width: 100px">
+          <el-option v-for="lang in [{label: '简体中文', value: 'zh'}, {label: '英语', value: 'en'}]" :key="item" 
+            :label="lang.label" :value="lang.value" />
+        </el-select>
       </div>
     </el-scrollbar>
     <div class="footer">
@@ -128,14 +139,14 @@ export default {
       font-size: 14px;
       color: var(--el-text-color-primary);
       .el-input-number {
-        width: 72px;
+        width: 80px;
         ::v-deep {
           span {
-            width: 24px;
+            width: 25px;
           }
           .el-input__wrapper {
             padding-left: 8px;
-            padding-right: 32px;
+            padding-right: 33px;
           }
         }
       }

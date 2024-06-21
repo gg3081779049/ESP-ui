@@ -2,7 +2,7 @@
   <div class="app-container">
     <el-collapse-transition>
       <el-form :model="queryParams" ref="queryForm" size="default" :inline="true" v-show="showSearch">
-        <el-form-item label="地点" prop="">
+        <el-form-item label="地点" prop="location">
           <el-input v-model="queryParams.location" placeholder="请输入地点" clearable />
         </el-form-item>
         <el-form-item label="时间类型">
@@ -24,7 +24,13 @@
     </el-collapse-transition>
 
     <div>
-      <el-button type="primary" plain size="small" @click="handleAdd"><SvgIcon icon-class="plus" />新增</el-button>
+      <el-button 
+        type="primary" 
+        plain 
+        size="small" 
+        @click="handleAdd">
+        <SvgIcon icon-class="plus" />新增
+      </el-button>
       <el-badge :value="ids.length" :max="99" :offset="[-3, 0]" :hidden="!ids.length" style="margin:0 12px">
         <el-button
           type="danger"

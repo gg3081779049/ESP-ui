@@ -3,8 +3,7 @@
   <scroll-pane ref="scrollPane" class="tags-view-wrapper" @scroll="closeMenu">
     <router-link
       ref="tag"
-      class="tags-view-item"
-      :class="{ 'is-active': tag.path === $route.path }"
+      :class="['tags-view-item', { 'is-active': tag.path === $route.path }]"
       :draggable="draggable"
       v-for="tag in visitedViews"
       :key="tag"

@@ -6,7 +6,10 @@
 
 <script>
 export default {
-  name: 'DataVisual'
+  name: 'DataVisual',
+  created() {
+    window.location.href = 'http://localhost:8088'
+  }
 }
 </script>
 

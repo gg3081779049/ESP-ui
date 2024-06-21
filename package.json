@@ -2,7 +2,7 @@
   "name": "energy-saving-pioneer",
   "version": "0.1.0",
   "private": true,
-  "description": "节能先锋",
+  "description": "节能减排",
   "author": "admin",
   "scripts": {
     "dev": "vue-cli-service serve",

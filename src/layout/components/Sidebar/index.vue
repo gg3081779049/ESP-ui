@@ -37,7 +37,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["collapse", "sidebarWidth", "sidebarResizeable", "title"]),
+    ...mapGetters(["collapse", "sidebarWidth", "title"]),
   },
 };
 </script>

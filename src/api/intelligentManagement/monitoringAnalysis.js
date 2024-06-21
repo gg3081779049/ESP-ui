@@ -37,12 +37,14 @@ export function list(params) {
         })
     }
     return new Promise((res, rej) => {
-        res({
-            data: {
-                total: params.location || params.timeType ? Data.length : data.length,
-                rows: Data
-            }
-        })
+        setTimeout(() => {
+            res({
+                data: {
+                    total: params.location || params.timeType ? Data.length : data.length,
+                    rows: Data
+                }
+            })
+        }, 200)
     })
 }
 
